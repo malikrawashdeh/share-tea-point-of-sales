@@ -1,0 +1,70 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
+}
+
+model drinks {
+  id            Int           @id @default(autoincrement())
+  drink_name    String?       @db.VarChar(255)
+  unit_price    Float?
+  category_name String?       @db.VarChar
+  order_items   order_items[]
+}
+
+model employees {
+  id       Int      @id
+  name     String?  @db.VarChar(255)
+  manager  Boolean?
+  password String?  @db.VarChar(255)
+  hours    Int?
+  orders   orders[]
+}
+
+model ingredients {
+  id               Int                @id @default(autoincrement())
+  name             String?            @db.VarChar(255)
+  quantity         Float?
+  unit_price       String?            @db.VarChar(255)
+  min_quantity     Float?
+  item_ingredients item_ingredients[]
+}
+
+model item_ingredients {
+  id            Int          @id
+  item_id       Int?
+  ingredient_id Int?
+  ingredients   ingredients? @relation(fields: [ingredient_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "ingredient_id")
+  order_items   order_items? @relation(fields: [item_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "item_id")
+}
+
+model materials {
+  id         Int     @id
+  name       String? @db.VarChar(255)
+  quantity   Int?
+  unit_price Float?
+}
+
+model order_items {
+  id               Int                @id @default(autoincrement())
+  order_id         Int?
+  drink_id         Int?
+  item_ingredients item_ingredients[]
+  drinks           drinks?            @relation(fields: [drink_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "drink_id")
+  orders           orders?            @relation(fields: [order_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "order_id")
+}
+
+model orders {
+  id           Int           @id @default(autoincrement())
+  total_price  Float?
+  name         String?       @db.VarChar(255)
+  created_at   DateTime?     @db.Date
+  created_time DateTime?     @db.Time(6)
+  employee_id  Int?
+  order_items  order_items[]
+  employees    employees?    @relation(fields: [employee_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "employee_id")
+}
