@@ -15,8 +15,8 @@ const Categories: React.FC<CategoriesProps> = ({categories}) => {
             {Array.from(categories).map((value, index) => (
                 <Grid item xs={2} sm={4} md={4} key={index} style={{}}>
                 <Card sx={{ maxWidth: 345 }}>
-                    <CardActionArea >
-                        <Link href={"/"}>
+                    <CardActionArea>
+                        <Link href={"/order/" + value}>
                             <CardMedia
                             component="img"
                             image="https://static.vecteezy.com/system/resources/thumbnails/024/933/352/small/refreshing-milkshake-with-chocolate-and-fruit-on-wooden-table-background-generated-by-ai-free-photo.jpg"
