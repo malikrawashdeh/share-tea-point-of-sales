@@ -1,4 +1,4 @@
-import { Button, Container, Grid } from "@/node_modules/@mui/material/index";
+import { Button, Container, Grid, Table, TableCell, TableContainer, TableHead, TableRow } from "@/node_modules/@mui/material/index";
 import { useState } from "react";
 import Chart from "./chart";
 
@@ -11,7 +11,9 @@ export default function Manager() {
             <Container style ={{backgroundColor: '#fff', height: '100vh', marginTop: '50px'}}>
                 <Container style={{alignItems:'center', justifyContent:'center'}}>
                     <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }} style={{padding: '1rem',}}>
-                        
+                        <TableContainer>
+
+                        </TableContainer>
                     </Grid>
                 </Container>
 
