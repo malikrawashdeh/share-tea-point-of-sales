@@ -1,6 +1,7 @@
 import prisma from "@/lib/prisma";
 import DrinkCardGrid from "./DrinkCardGrid";
 import { drinks } from "@prisma/client";
+import { Container, Grid } from "@mui/material";
 
 const getAllDrinkCategories = async () => {
     const categories = await prisma.drinks.findMany({
@@ -40,7 +41,11 @@ export default async function Page() {
 
     return (
         <main>
-            <DrinkCardGrid drinkCategoryMap={drinkCategoryMap}></DrinkCardGrid>
+            <Container style={{alignItems:'center', justifyContent:'center'}}>
+                <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }} style={{padding: '1rem',}}>
+                    <DrinkCardGrid drinkCategoryMap={drinkCategoryMap}></DrinkCardGrid>
+                </Grid>
+            </Container>  
         </main>
     )
 }
