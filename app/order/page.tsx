@@ -1,59 +1,42 @@
-import prisma from "@/lib/prisma"
-import { drinks } from "@prisma/client";
+'use client'
+
 import Categories from "./Categories";
 import { Container, Grid } from "@mui/material";
+import { getDrinksWithinCategories } from "@/lib/orderQueries";
+import { useOrder } from "./OrderContext";
+import { drinks } from "@prisma/client";
+import { createContext, useEffect, useState } from "react";
+import React from "react";
 
-const getDrinks = async () => {
-    const drinks = await prisma.drinks.findMany({
-        orderBy: [
-            {id: 'asc',}
-        ]
-    });
+export default function Page() { 
+    const [loading, setLoading] = useState(true);
+    const [menu, setMenu] = useState(new Map<string, drinks[]>());
 
-    return drinks;
-}
+    // const {order, dispatch} = useOrder();
+    // const OrderContext = createContext<{ order: OrderState; dispatch: Dispatch<OrderAction> } | undefined>(undefined);
+    // const [newOrderItem, setNewOrderItem] = useState<drinks>({
+    //     id: -1,
+    //     drink_name: 'invalid',
+    //     category_name: 'invalid',
+    //     unit_price: -1.00
+    // });
 
-const getAllDrinkCategories = async () => {
-    const categories = await prisma.drinks.findMany({
-        select: {
-            category_name: true
-        },
-        distinct: ['category_name']
-    })
+    const getMenu = React.useCallback(async () => {
+        setLoading(true);
+        const menu = await getDrinksWithinCategories();
+        setMenu(menu);
+        setLoading(false);
+    }, []);
 
-    return categories.map((value) => (value.category_name));
-}
-
-const getDrinksWithinCategories = async () => {
-    const categories = await getAllDrinkCategories();
-    let categoryDrinkMap = new Map<string, drinks[]>();
-
-    categories.forEach((cat) => {
-        cat = cat !== null ? (cat) : "N/A";
-        categoryDrinkMap.set(cat, []);
-    });
-
-    for (const cat of categoryDrinkMap.keys()) {
-        let drinks = await prisma.drinks.findMany({
-            where: {
-                category_name: cat
-            }
-        });
-
-        categoryDrinkMap.set(cat, drinks);
-    }
-
-    return categoryDrinkMap;
-}
-
-export default async function Employees() {
-    const categoryDrinkMap = await getDrinksWithinCategories();
+    useEffect(() => {
+        getMenu();
+    }, []);
 
     return (
         <main>
             <Container style={{alignItems:'center', justifyContent:'center'}}>
                 <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }} style={{padding: '1rem',}}>
-                    <Categories categories={Array.from(categoryDrinkMap.keys())}></Categories>
+                    <Categories categories={Array.from(menu.keys())}></Categories>
                 </Grid>
             </Container>
         </main>
