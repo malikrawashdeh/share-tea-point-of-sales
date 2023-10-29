@@ -5,12 +5,11 @@ import { drinks } from "@prisma/client";
 import { useParams } from "next/navigation";
 
 interface DrinkCardGridProps {
-    drinkCategoryMap: Map<string, drinks[]>
+    drinkCategoryMap: Map<string, drinks[]>,
+    category: string,
 }
 
-const Drinks: React.FC<DrinkCardGridProps> = ({drinkCategoryMap}) => {
-    const params = useParams();
-    const category = typeof params['category'] === "string" ? params['category'] : "";
+const Drinks: React.FC<DrinkCardGridProps> = ({drinkCategoryMap, category}) => {
     const drinks = drinkCategoryMap.get(category) ?? new Array<drinks>();
 
     return (
@@ -19,7 +18,6 @@ const Drinks: React.FC<DrinkCardGridProps> = ({drinkCategoryMap}) => {
             <Grid item xs={2} sm={4} md={4} key={index} style={{}}>
                 <Card sx={{ maxWidth: 345 }}>
                     <CardActionArea>
-                        <Link href={"/"}>
                             <CardMedia
                             component="img"
                             image="https://static.vecteezy.com/system/resources/thumbnails/024/933/352/small/refreshing-milkshake-with-chocolate-and-fruit-on-wooden-table-background-generated-by-ai-free-photo.jpg"
@@ -35,7 +33,6 @@ const Drinks: React.FC<DrinkCardGridProps> = ({drinkCategoryMap}) => {
                                     species, ranging across all continents except Antarctica
                                 </Typography>
                             </CardContent>
-                        </Link>
                     </CardActionArea>
                 </Card>
             </Grid>
