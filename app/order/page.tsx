@@ -2,18 +2,19 @@
 
 import Categories from "./Categories";
 import { Box, CircularProgress, Container, Grid } from "@mui/material";
-import { getDrinksWithinCategories } from "@/lib/orderQueries";
-import { useOrder } from "./OrderContext";
+import { getDrinksWithinCategories } from "@/lib/orderQueries";``
 import { drinks } from "@prisma/client";
-import { createContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import React from "react";
-import Drinks from "./Drinks";
 import OrderBar from "./OrderBar";
+import DrinksDisplay from "./DrinksDisplay";
 
 export default function Page() { 
     const [loading, setLoading] = useState(true);
     const [menu, setMenu] = useState(new Map<string, drinks[]>());
     const [table, setTable] = useState('categories');
+    const [drink, setDrink] = useState<drinks>();
+    const [order, setOrder] = useState<Array<drinks>>(new Array<drinks>());
 
     const getMenu = React.useCallback(async () => {
         setLoading(true);
@@ -22,8 +23,18 @@ export default function Page() {
         setLoading(false);
     }, []);
 
+    const changeDrinkState = (drink: drinks) => {
+        setDrink(drink);
+        console.log(drink);
+    }
+
     const changeTableState = (table: string) => {
         setTable(table);
+    }
+
+    const addDrinkToOrder = (drink: drinks) => {
+        setOrder([...order, drink]);
+        console.log(order);
     }
 
     useEffect(() => {
@@ -77,7 +88,7 @@ export default function Page() {
 
                 <Container style={{alignItems:'center', justifyContent:'center'}}>
                     <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }} style={{padding: '1rem',}}>
-                        <Drinks drinkCategoryMap={menu} category={table}></Drinks>
+                        <DrinksDisplay drinkCategoryMap={menu} category={table} setDrink={changeDrinkState} addDrinkToOrder={addDrinkToOrder}></DrinksDisplay>
                     </Grid>
                 </Container>
             </main>
