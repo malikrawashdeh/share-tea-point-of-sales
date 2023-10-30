@@ -1,7 +1,38 @@
-import { Paper } from "@mui/material";
+import { Avatar, Box, Card, Container, Grid, IconButton, Paper } from "@mui/material";
+import { drinks } from "@prisma/client";
+import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
+import React from "react";
 
-export default function OrderBar() {
+interface OrderBarProps {
+    order: drinks[],
+}
+
+const CartItemCounter: React.FC<OrderBarProps> = ({order}) => {
     return (
-        <Paper sx={{width: '100%', height: '5rem', background: '#9F9F9F'}}></Paper>
+        <>{order.length}</>
     );
 }
+
+const Cart: React.FC<OrderBarProps> = ({order}) => {
+    return (
+        <Box sx={{justifyContent: 'flex-end', alignContent: 'center'}}>
+            <CartItemCounter order={order}/>
+            <IconButton onClick={() => {}} sx={{ p: 0 }}>
+                <Avatar>
+                    <ShoppingBasketIcon fontSize="large"/>
+                </Avatar>    
+            </IconButton>
+
+        </Box>
+    );  
+}
+
+const OrderBar: React.FC<OrderBarProps> = ({order}) => {
+    return (
+        <Paper sx={{display: "flex", width: '100%', height: '5rem', background: '#9F9F9F', alignContent: 'center', justifyContent: 'flex-end'}}>
+            <Cart order={order}/>
+        </Paper>
+    );
+}
+
+export default OrderBar;

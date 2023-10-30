@@ -61,7 +61,7 @@ export default function Page() {
         return (
             <main>
                 <Container style={{alignItems:'center', justifyContent:'center'}}>
-                    <OrderBar></OrderBar>
+                    <OrderBar order={order}></OrderBar>
                 </Container>
 
                 <Container style={{alignItems:'center', justifyContent:'center'}}>
@@ -83,7 +83,7 @@ export default function Page() {
         return (
             <main>
                 <Container style={{alignItems:'center', justifyContent:'center'}}>
-                    <OrderBar></OrderBar>
+                    <OrderBar order={order}></OrderBar>
                 </Container>
 
                 <Container style={{alignItems:'center', justifyContent:'center'}}>
