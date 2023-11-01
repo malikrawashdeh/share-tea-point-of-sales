@@ -45,3 +45,30 @@ export const getDrinksWithinCategories = async () => {
 
     return categoryDrinkMap;
 }
+
+export const submitOrder = async (orderItems: drinks[]) => {
+    const price = orderItems.map((item) => item.unit_price).reduce((acc, curr) => acc! + curr!);   
+
+    const now = new Date();
+
+    const order = await prisma.orders.create({
+        data: {
+            total_price: price,
+            name: 'tmpName',
+            created_at: now,
+            created_time: now,
+            employee_id: null,
+        }
+    });
+
+    const order_id = order.id;
+
+    for (const drink of orderItems) {
+        await prisma.order_items.create({
+            data: {
+                order_id: order_id,
+                drink_id: drink.id
+            }
+        })
+    }
+}

@@ -1,19 +1,24 @@
-import { Avatar, Box, Card, Container, Grid, IconButton, Paper } from "@mui/material";
+import { Avatar, Box, Button, Card, Container, Grid, IconButton, Paper } from "@mui/material";
 import { drinks } from "@prisma/client";
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 import React from "react";
 
-interface OrderBarProps {
+interface CartItemCounterProps {
     order: drinks[],
 }
 
-const CartItemCounter: React.FC<OrderBarProps> = ({order}) => {
+const CartItemCounter: React.FC<CartItemCounterProps> = ({order}) => {
     return (
         <>{order.length}</>
     );
 }
 
-const Cart: React.FC<OrderBarProps> = ({order}) => {
+interface CartProps {
+    order: drinks[],
+    clearOrder(): void,
+}
+
+const Cart: React.FC<CartProps> = ({order}) => {
     return (
         <Box sx={{justifyContent: 'flex-end', alignContent: 'center'}}>
             <CartItemCounter order={order}/>
@@ -27,10 +32,18 @@ const Cart: React.FC<OrderBarProps> = ({order}) => {
     );  
 }
 
-const OrderBar: React.FC<OrderBarProps> = ({order}) => {
+interface OrderBarProps {
+    order: drinks[],
+    clearOrder(): void,
+    finishOrder(): void,
+}
+
+const OrderBar: React.FC<OrderBarProps> = ({order, clearOrder, finishOrder}) => {
     return (
         <Paper sx={{display: "flex", width: '100%', height: '5rem', background: '#9F9F9F', alignContent: 'center', justifyContent: 'flex-end'}}>
-            <Cart order={order}/>
+            <Button onClick={finishOrder}>Finish Order</Button>
+            <Button onClick={clearOrder}>Clear Order</Button>
+            <Cart order={order} clearOrder={clearOrder}/>
         </Paper>
     );
 }

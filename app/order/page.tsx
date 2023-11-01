@@ -2,7 +2,7 @@
 
 import Categories from "./Categories";
 import { Box, CircularProgress, Container, Grid } from "@mui/material";
-import { getDrinksWithinCategories } from "@/lib/orderQueries";``
+import { getDrinksWithinCategories, submitOrder } from "@/lib/orderQueries";``
 import { drinks } from "@prisma/client";
 import { useEffect, useState } from "react";
 import React from "react";
@@ -23,9 +23,12 @@ export default function Page() {
         setLoading(false);
     }, []);
 
+    const submitOrderCustomer = React.useCallback(async (order: drinks[]) => {
+        await submitOrder(order);
+    }, []);
+
     const changeDrinkState = (drink: drinks) => {
         setDrink(drink);
-        console.log(drink);
     }
 
     const changeTableState = (table: string) => {
@@ -34,7 +37,15 @@ export default function Page() {
 
     const addDrinkToOrder = (drink: drinks) => {
         setOrder([...order, drink]);
-        console.log(order);
+    }
+
+    const clearOrder = () => {
+        setOrder([]);
+    }
+
+    const finishOrder = () => {
+        submitOrderCustomer(order);
+        clearOrder();
     }
 
     useEffect(() => {
@@ -61,7 +72,7 @@ export default function Page() {
         return (
             <main>
                 <Container style={{alignItems:'center', justifyContent:'center'}}>
-                    <OrderBar order={order}></OrderBar>
+                    <OrderBar order={order} clearOrder={clearOrder} finishOrder={finishOrder}></OrderBar>
                 </Container>
 
                 <Container style={{alignItems:'center', justifyContent:'center'}}>
@@ -83,7 +94,7 @@ export default function Page() {
         return (
             <main>
                 <Container style={{alignItems:'center', justifyContent:'center'}}>
-                    <OrderBar order={order}></OrderBar>
+                    <OrderBar order={order} clearOrder={clearOrder} finishOrder={finishOrder}></OrderBar>
                 </Container>
 
                 <Container style={{alignItems:'center', justifyContent:'center'}}>
