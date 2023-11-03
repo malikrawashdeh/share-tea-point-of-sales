@@ -65,7 +65,7 @@ interface PriceDisplayProps {
 const PriceDisplay: React.FC<PriceDisplayProps> = ({total_price}) => {
     return (
         <Typography variant="h4">
-            {"$" + total_price}
+            {"$" + total_price.toFixed(2)}
         </Typography>
     )
 }
