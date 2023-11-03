@@ -15,7 +15,7 @@ const CartDisplay: React.FC<CartDisplayProps> = ({ isOpen, toggleCart, cartItems
         <>
         <IconButton style={{}} onClick={toggleCart}>
             <Avatar>
-                <ShoppingBasketIcon fontSize="large"/>
+                <ShoppingBasketIcon fontSize="large" htmlColor="black"/>
             </Avatar>
         </IconButton>
 
@@ -23,9 +23,9 @@ const CartDisplay: React.FC<CartDisplayProps> = ({ isOpen, toggleCart, cartItems
             <div style={{ width: '250px' }}>
                 <List>
                     {cartItems.map((item, index) => (
-                        <ListItemButton>
-                            <ListItem key={index} onClick={() => (removeItem(index))}>
-                                <ListItemText primary={item.drink_name} secondary={`Price: ${"$" + item.unit_price}`} />
+                        <ListItemButton key={index} onClick={() => (removeItem(index))}>
+                            <ListItem key={index}>
+                                <ListItemText primary={item.drink_name + "  ❌"} secondary={`Price: ${"$" + item.unit_price}`} />
                             </ListItem>
                         </ListItemButton>
                     ))}
@@ -82,11 +82,11 @@ const OrderBar: React.FC<OrderBarProps> = ({order, clearOrder, finishOrder, back
     const total_price = order.length !== 0 && order !== null ? order.map((item) => item.unit_price).reduce((acc, curr) => acc! + curr!)! : 0.00;
 
     return (
-        <Paper sx={{display: "static", marginTop:'0', width: '100%', height: '5rem', background: '#9F9F9F'}}>
+        <Paper sx={{display: "static", marginTop:'0', width: '100%', height: '5rem', background: '#71797E'}}>
             <Grid container spacing={{}} columns={{ xs: 12, sm: 12, md: 12 }} sx={{height: '100%'}}>
                 <Grid item xs={4} sm={4} md={4} sx={{display: 'flex', alignItems: 'center'}}>
-                    <Button onClick={finishOrder}>Finish Order</Button>
-                    <Button onClick={back}>Back</Button>
+                    <Button onClick={finishOrder} variant="contained" style={{backgroundColor: '#ce0e2d', marginRight: '1rem', marginLeft: '1rem'}}>Finish Order</Button>
+                    <Button onClick={back} variant="contained" style={{backgroundColor: '#ce0e2d'}}>Back</Button>
                 </Grid>
                 <Grid item xs={4} sm={4} md={4} sx={{display:"flex", justifyContent:"center", alignItems:"center"}}>
                     <PriceDisplay total_price={total_price}/>
