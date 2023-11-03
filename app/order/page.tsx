@@ -2,7 +2,7 @@
 
 import Categories from "./Categories";
 import { Box, CircularProgress, Container, Grid } from "@mui/material";
-import { getDrinksWithinCategories, submitOrder } from "@/lib/orderQueries";``
+import { getDrinksWithinCategories, submitOrder } from "@/lib/orderQueries";
 import { drinks } from "@prisma/client";
 import { useEffect, useState } from "react";
 import React from "react";
@@ -13,6 +13,7 @@ export default function Page() {
     const [loading, setLoading] = useState(true);
     const [menu, setMenu] = useState(new Map<string, drinks[]>());
     const [table, setTable] = useState('categories');
+    const [prevtable, setPrevTable] = useState('categories');
     const [drink, setDrink] = useState<drinks>();
     const [order, setOrder] = useState<Array<drinks>>(new Array<drinks>());
 
@@ -22,7 +23,7 @@ export default function Page() {
         setMenu(menu);
         setLoading(false);
     }, []);
-
+    
     const submitOrderCustomer = React.useCallback(async (order: drinks[]) => {
         await submitOrder(order);
     }, []);
@@ -31,12 +32,17 @@ export default function Page() {
         setDrink(drink);
     }
 
-    const changeTableState = (table: string) => {
-        setTable(table);
+    const changeTableState = (newtable: string) => {
+        setPrevTable(table);
+        setTable(newtable);
     }
 
     const addDrinkToOrder = (drink: drinks) => {
         setOrder([...order, drink]);
+    }
+
+    const removeItem = (index: number) => {
+        setOrder([...order.slice(0, index), ...order.slice(index + 1)])
     }
 
     const clearOrder = () => {
@@ -46,6 +52,12 @@ export default function Page() {
     const finishOrder = () => {
         submitOrderCustomer(order);
         clearOrder();
+    }
+
+    const back = () => {
+        const tmp = table;
+        setTable(prevtable);
+        setPrevTable(tmp);
     }
 
     useEffect(() => {
@@ -58,11 +70,11 @@ export default function Page() {
         return (
             <main>
                 <Box 
-                sx={{ display: 'flex' }}
-                display="flex"
-                justifyContent="center"
-                alignItems="center"
-                minHeight="100vh">
+                    sx={{ display: 'flex' }}
+                    display="flex"
+                    justifyContent="center"
+                    alignItems="center"
+                    minHeight="100vh">
                     <CircularProgress sx={{color: 'red'}}/>
                 </Box>
             </main>
@@ -72,7 +84,7 @@ export default function Page() {
         return (
             <main>
                 <Container style={{alignItems:'center', justifyContent:'center'}}>
-                    <OrderBar order={order} clearOrder={clearOrder} finishOrder={finishOrder}></OrderBar>
+                    <OrderBar order={order} clearOrder={clearOrder} finishOrder={finishOrder} back={back} removeItem={removeItem}></OrderBar>
                 </Container>
 
                 <Container style={{alignItems:'center', justifyContent:'center'}}>
@@ -94,11 +106,11 @@ export default function Page() {
         return (
             <main>
                 <Container style={{alignItems:'center', justifyContent:'center'}}>
-                    <OrderBar order={order} clearOrder={clearOrder} finishOrder={finishOrder}></OrderBar>
+                    <OrderBar order={order} clearOrder={clearOrder} finishOrder={finishOrder} back={back} removeItem={removeItem}></OrderBar>
                 </Container>
 
                 <Container style={{alignItems:'center', justifyContent:'center'}}>
-                    <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }} style={{padding: '1rem',}}>
+                    <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }} style={{padding: '1rem'}}>
                         <DrinksDisplay drinkCategoryMap={menu} category={table} setDrink={changeDrinkState} addDrinkToOrder={addDrinkToOrder}></DrinksDisplay>
                     </Grid>
                 </Container>
