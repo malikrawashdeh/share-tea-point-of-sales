@@ -1,25 +1,43 @@
-import prisma from "@/lib/prisma";
-import DrinkTable from "./DrinkTable";
+'use client'
+import React, { useEffect, useState } from 'react';
+import { Card, CardActionArea, CardContent, CardMedia, Container, Grid, Typography } from '@mui/material';
+import { getDrinks } from '@/lib/orderQueries';
 
-const getDrinks = async () => {
-    const drinks = await prisma.drinks.findMany({
-        orderBy: [
-            {id: 'asc',}
-        ]
-    });
+const Menu = () => {
+  const [drinks, setDrinks] = useState<string[]>([]);
 
-    return drinks;
-}
+  useEffect(() => {
+    const fetchData = async () => {
+      const drinksData = await getDrinks();
+      setDrinks(drinksData);
+    };
+    fetchData();
+  }, []); 
 
-const DrinksPage = async () => {
-    const drinks = await getDrinks();
+  return (
+    <Container maxWidth="lg">
+      <Grid container spacing={2}>
+        {drinks.map((drink, index) => (
+          <Grid item xs={12} sm={6} md={4} key={index}>
+            <Card>
 
-    return (
-        <div>
-            <h1>Drinks Page</h1>
-            <DrinkTable drinks={drinks}></DrinkTable>
-        </div>
-    )
-}
+                <CardMedia
+                  component="img"
+                  alt={drink.drink_name}
+                  height="200"
+                  image="https://static.vecteezy.com/system/resources/thumbnails/024/933/352/small/refreshing-milkshake-with-chocolate-and-fruit-on-wooden-table-background-generated-by-ai-free-photo.jpg"
+                />
+                <CardContent>
+                  <Typography variant="h6" component="div">
+                    {drink.drink_name}
+                  </Typography>
+                </CardContent>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
+    </Container>
+  );
+};
 
-export default DrinksPage;
+export default Menu;
