@@ -13,7 +13,7 @@ export default function Manager() {
                 <Container style={{alignItems:'center', justifyContent:'center'}}>
                     <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }} style={{padding: '1rem',}}>
                         <TableContainer>
-
+                            
                         </TableContainer>
                     </Grid>
                 </Container>

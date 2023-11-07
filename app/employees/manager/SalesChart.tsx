@@ -39,7 +39,7 @@ export default function SalesChart() {
             calc: "stringify",
           },
         ],
-        ...data.map((item) => ([item.drink_id, item.sales, "green", null]))
+        ...data.map((item) => ([item.drink_name, item.sales, "green", null]))
     ];
 
     
