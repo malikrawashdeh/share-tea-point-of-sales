@@ -19,7 +19,7 @@ export default function Manager() {
 
                 {/*Chart*/}
                 <Container style={{alignItems:'center', justifyContent:'center'}}>
-                    
+                    <Chart></Chart>
                 </Container>
 
                 {/*Item Buttons*/}
