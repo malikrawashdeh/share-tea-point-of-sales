@@ -1,5 +1,6 @@
 import { Button, Container, Grid, Table, TableCell, TableContainer, TableHead, TableRow } from "@/node_modules/@mui/material/index";
 import { useState } from "react";
+import SalesChart from "./SalesChart";
 // import Chart from "./chart";
 
 export default function Manager() {
@@ -19,7 +20,7 @@ export default function Manager() {
 
                 {/*Chart*/}
                 <Container style={{alignItems:'center', justifyContent:'center'}}>
-                    
+                    <SalesChart/>
                 </Container>
 
                 {/*Item Buttons*/}
