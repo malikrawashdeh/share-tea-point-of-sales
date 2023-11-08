@@ -2,9 +2,10 @@
 import React, { useEffect, useState } from 'react';
 import { Card, CardActionArea, CardContent, CardMedia, Container, Grid, Typography } from '@mui/material';
 import { getDrinks } from '@/lib/orderQueries';
+import { drinks } from '@prisma/client';
 
 const Menu = () => {
-  const [drinks, setDrinks] = useState<string[]>([]);
+  const [drinks, setDrinks] = useState(new Array<drinks>());
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,7 +24,7 @@ const Menu = () => {
 
                 <CardMedia
                   component="img"
-                  alt={drink.drink_name}
+                  alt={drink!.drink_name!}
                   height="200"
                   image="https://static.vecteezy.com/system/resources/thumbnails/024/933/352/small/refreshing-milkshake-with-chocolate-and-fruit-on-wooden-table-background-generated-by-ai-free-photo.jpg"
                 />

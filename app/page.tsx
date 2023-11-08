@@ -13,7 +13,7 @@ const HomePage = () => {
         <p style={{ marginBottom: '30px'}}>
           ShareTea is your go-to destination for the best boba tea experience. 
           Our cozy, vibrant spot offers a diverse menu of freshly brewed teas and creative flavors, paired with perfectly chewy tapioca pearls. 
-          Whether you're a boba enthusiast or a newcomer, indulge in our delightful concoctions and sip your way to bliss!
+          Whether you&apos;re a boba enthusiast or a newcomer, indulge in our delightful concoctions and sip your way to bliss!
         </p>
         <Link href="/order">
           <button style={{ textDecoration: 'none', color: 'white', backgroundColor: 'red', padding: '10px 20px', borderRadius: '5px', border: 'none', cursor: 'pointer' }}>
