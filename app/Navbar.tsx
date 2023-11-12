@@ -120,7 +120,9 @@ function ResponsiveAppBar() {
                   </Link>
                 </MenuItem>
               ))}
-              {session ? (
+              {session?.user.role == "admin" ||
+              session?.user.role === "manager" ||
+              session?.user.role == "employee" ? (
                 <MenuItem key={"Employees"} onClick={handleCloseNavMenu}>
                   <Link href={"/" + "Employees".toLocaleLowerCase()}>
                     <Typography textAlign="center">Employees</Typography>
@@ -161,7 +163,9 @@ function ResponsiveAppBar() {
                 </Link>
               </Box>
             ))}
-            {session ? (
+            {session?.user.role == "admin" ||
+            session?.user.role === "manager" ||
+            session?.user.role == "employee" ? (
               <Box sx={{ my: 2, mx: 2, color: "white", display: "block" }}>
                 <Link href={"/" + "Employees".toLocaleLowerCase()}>
                   Employees
