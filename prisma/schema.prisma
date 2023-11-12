@@ -22,7 +22,6 @@ model employees {
   manager  Boolean?
   password String?  @db.VarChar(255)
   hours    Int?
-  orders   orders[]
 }
 
 model ingredients {
@@ -66,5 +65,34 @@ model orders {
   created_time DateTime?     @db.Time(6)
   employee_id  Int?
   order_items  order_items[]
-  employees    employees?    @relation(fields: [employee_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "employee_id")
+  employees    users?        @relation(fields: [employee_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "employee_id")
+}
+
+model cat {
+  id       Int     @id
+  type     String?
+  quantity Int?
+}
+
+model teammembers {
+  student_name   String  @id
+  section        Int?
+  favorite_movie String?
+}
+
+model users {
+  id       Int       @id(map: "users_pk") @default(autoincrement())
+  name     String    @db.VarChar
+  email    String?   @db.VarChar
+  username String    @db.VarChar
+  role     user_role
+  password String    @db.VarChar
+  orders   orders[]
+}
+
+enum user_role {
+  manager
+  employee
+  user
+  admin
 }

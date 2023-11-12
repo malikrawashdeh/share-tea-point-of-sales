@@ -3,6 +3,17 @@ import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { GithubProfile } from "next-auth/providers/github";
+import { users } from "@prisma/client";
+import prisma from "@/lib/prisma";
+
+// type for user
+type User = {
+  id: string;
+  name: string | null;
+  username: string;
+  email: string;
+  role: string;
+};
 
 const options: NextAuthOptions = {
   providers: [
@@ -25,21 +36,23 @@ const options: NextAuthOptions = {
         username: { label: "Username:", type: "text" },
         password: { label: "Password:", type: "password" },
       },
-      async authorize(credentials) {
-        // TODO: this is where you would call a database to get the user
-        // and compare the password
-        // Docs: https://next-auth.js.org/configuration/providers#credentials-provider
-        const user = {
-          id: "42",
-          name: "username",
-          password: "password",
-          role: "admin",
-        };
-        if (
-          credentials?.username === user.name &&
-          credentials?.password === user.password
-        ) {
-          return user;
+
+      async authorize(
+        credentials: Record<"username" | "password", string> | undefined
+      ) {
+        const user = await prisma.users.findFirst({
+          where: { username: credentials?.username },
+        });
+
+        if (user && credentials?.password === user.password) {
+          return {
+            id: user.id.toString(),
+            name: user.name,
+            email: user.email,
+            username: user.username,
+            role: user.role,
+            password: user.password,
+          };
         } else {
           return null;
         }
