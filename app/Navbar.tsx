@@ -59,7 +59,7 @@ function ResponsiveAppBar() {
   const { data: session } = useSession();
 
   return (
-    <AppBar position="static" style={{ background: "#ce0e2d" }}>
+    <AppBar position="static" style={{ background: '#ce0e2d', marginBottom: '1rem' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
