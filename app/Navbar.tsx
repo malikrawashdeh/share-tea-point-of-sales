@@ -15,11 +15,14 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import Link from "next/link";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 import WeatherWidget from "./components/WeatherWidget";
+import { red } from "@mui/material/colors";
 
-const pages = ["Home", "Menu", "Order", "Employees"];
+const pages = ["Home", "Menu", "Order"];
 const settings = ["Account", "Logout"];
+const signedOut = ["Login", "Sign Up"];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
@@ -43,6 +46,17 @@ function ResponsiveAppBar() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  const getlink = (setting: string): string => {
+    if (setting === "Login") {
+      return "/api/auth/signin";
+    } else if (setting === "Sign Up") {
+      return "/signup";
+    }
+    return "/";
+  };
+
+  const { data: session } = useSession();
 
   return (
     <AppBar position="static" style={{ background: '#ce0e2d', marginBottom: '1rem' }}>
@@ -106,6 +120,15 @@ function ResponsiveAppBar() {
                   </Link>
                 </MenuItem>
               ))}
+              {session?.user.role == "admin" ||
+              session?.user.role === "manager" ||
+              session?.user.role == "employee" ? (
+                <MenuItem key={"Employees"} onClick={handleCloseNavMenu}>
+                  <Link href={"/" + "Employees".toLocaleLowerCase()}>
+                    <Typography textAlign="center">Employees</Typography>
+                  </Link>
+                </MenuItem>
+              ) : null}
             </Menu>
           </Box>
           <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
@@ -140,13 +163,30 @@ function ResponsiveAppBar() {
                 </Link>
               </Box>
             ))}
+            {session?.user.role == "admin" ||
+            session?.user.role === "manager" ||
+            session?.user.role == "employee" ? (
+              <Box sx={{ my: 2, mx: 2, color: "white", display: "block" }}>
+                <Link href={"/" + "Employees".toLocaleLowerCase()}>
+                  Employees
+                </Link>
+              </Box>
+            ) : null}
             <WeatherWidget />
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Your Avatar" src="/static/images/avatar/2.jpg" />
+                <Avatar
+                  alt="Your Avatar"
+                  src={
+                    session?.user.image
+                      ? session?.user.image
+                      : "./anonymous.png"
+                  }
+                  style={{ backgroundColor: "white" }}
+                />
               </IconButton>
             </Tooltip>
             <Menu
@@ -165,11 +205,26 @@ function ResponsiveAppBar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
+              {session
+                ? settings.map((setting) => (
+                    <MenuItem key={setting}>
+                      <Typography
+                        textAlign="center"
+                        onClick={() =>
+                          setting === "Logout" ? signOut() : undefined
+                        }
+                      >
+                        {setting}
+                      </Typography>
+                    </MenuItem>
+                  ))
+                : signedOut.map((setting) => (
+                    <Link key={setting} href={getlink(setting)}>
+                      <MenuItem>
+                        <Typography textAlign="center">{setting}</Typography>
+                      </MenuItem>
+                    </Link>
+                  ))}
             </Menu>
           </Box>
         </Toolbar>
