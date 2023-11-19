@@ -3,19 +3,14 @@ import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { GithubProfile } from "next-auth/providers/github";
-import { users } from "@prisma/client";
 import prisma from "@/lib/prisma";
-
-// type for user
-type User = {
-  id: string;
-  name: string | null;
-  username: string;
-  email: string;
-  role: string;
-};
+import { compare } from "bcrypt";
 
 const options: NextAuthOptions = {
+  pages: {
+    // TODO implement signin page
+    signIn: "/signin",
+  },
   providers: [
     GitHubProvider({
       profile(profile: GithubProfile) {
@@ -30,6 +25,10 @@ const options: NextAuthOptions = {
       clientId: process.env.GITHUB_ID as string,
       clientSecret: process.env.GITHUB_SECRET as string,
     }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+    }),
     CredentialsProvider({
       name: "Credentials",
       credentials: {
@@ -40,11 +39,19 @@ const options: NextAuthOptions = {
       async authorize(
         credentials: Record<"username" | "password", string> | undefined
       ) {
+        if (!credentials || !credentials.username || !credentials.password) {
+          return null;
+        }
         const user = await prisma.users.findFirst({
           where: { username: credentials?.username },
         });
 
-        if (user && credentials?.password === user.password) {
+        const passwordMatch = await compare(
+          credentials?.password,
+          user?.password ?? ""
+        );
+
+        if (user && passwordMatch) {
           return {
             id: user.id.toString(),
             name: user.name,
@@ -71,7 +78,6 @@ const options: NextAuthOptions = {
       return session;
     },
   },
-  // TODO: add custome sign in page
 };
 
 export default options;

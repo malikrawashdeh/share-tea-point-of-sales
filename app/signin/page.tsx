@@ -1,10 +1,10 @@
 import React from "react";
-import SignUpForm from "../../components/form/SignUpForm";
+import SignOnForm from "../../components/form/SignOnForm";
 
 const Login: React.FC = () => {
   return (
     <div className="w-full">
-      <SignUpForm />
+      <SignOnForm />
     </div>
   );
 };

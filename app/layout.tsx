@@ -24,9 +24,11 @@ export default async function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <AuthProvider>
-          <ResponsiveAppBar />
+          <main className="flex flex-col items-center justify-center w-full flex-1  text-center">
+            <ResponsiveAppBar />
+            {children}
+          </main>
         </AuthProvider>
-        {children}
       </body>
     </html>
   );

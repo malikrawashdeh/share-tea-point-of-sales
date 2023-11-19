@@ -13,6 +13,7 @@ model drinks {
   drink_name    String?       @db.VarChar(255)
   unit_price    Float?
   category_name String?       @db.VarChar
+  desc          String?       @db.VarChar
   order_items   order_items[]
 }
 

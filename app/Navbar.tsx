@@ -9,57 +9,36 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import Link from "next/link";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 
-import WeatherWidget from "./components/WeatherWidget";
-import { red } from "@mui/material/colors";
+import WeatherWidget from "../components/WeatherWidget";
+import UserNavHeader from "../components/UserNavHeader";
 
 const pages = ["Home", "Menu", "Order"];
-const settings = ["Account", "Logout"];
-const signedOut = ["Login", "Sign Up"];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
-    null
-  );
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   );
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget);
-  };
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
-
-  const getlink = (setting: string): string => {
-    if (setting === "Login") {
-      return "/api/auth/signin";
-    } else if (setting === "Sign Up") {
-      return "/signup";
-    }
-    return "/";
-  };
-
   const { data: session } = useSession();
 
   return (
-    <AppBar position="static" style={{ background: '#ce0e2d', marginBottom: '1rem' }}>
+    <AppBar
+      position="static"
+      style={{ background: "#ce0e2d", marginBottom: "1rem" }}
+    >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
@@ -79,7 +58,6 @@ function ResponsiveAppBar() {
           >
             Sharetea
           </Typography>
-
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
@@ -174,59 +152,11 @@ function ResponsiveAppBar() {
             ) : null}
             <WeatherWidget />
           </Box>
-
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar
-                  alt="Your Avatar"
-                  src={
-                    session?.user.image
-                      ? session?.user.image
-                      : "./anonymous.png"
-                  }
-                  style={{ backgroundColor: "white" }}
-                />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {session
-                ? settings.map((setting) => (
-                    <MenuItem key={setting}>
-                      <Typography
-                        textAlign="center"
-                        onClick={() =>
-                          setting === "Logout" ? signOut() : undefined
-                        }
-                      >
-                        {setting}
-                      </Typography>
-                    </MenuItem>
-                  ))
-                : signedOut.map((setting) => (
-                    <Link key={setting} href={getlink(setting)}>
-                      <MenuItem>
-                        <Typography textAlign="center">{setting}</Typography>
-                      </MenuItem>
-                    </Link>
-                  ))}
-            </Menu>
-          </Box>
+          {session != null ? (
+            <UserNavHeader />
+          ) : (
+            <Link href="/signin">Login / SignUp</Link>
+          )}
         </Toolbar>
       </Container>
     </AppBar>
