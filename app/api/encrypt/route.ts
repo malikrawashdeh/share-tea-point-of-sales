@@ -4,10 +4,10 @@ import { hash } from "bcrypt";
 
 type User = {
   id: number;
-  name: string;
-  email: string;
-  username: string;
-  role: string;
+  name: string | null;
+  email: string | null;
+  username: string | null;
+  role: string | null;
   password: string;
 };
 
