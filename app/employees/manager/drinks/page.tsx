@@ -1,7 +1,7 @@
 'use client'
 
 import DrinkTable from "./DrinkTable";
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { drinks } from "@prisma/client";
 import React from "react";
 import Fields from "./Fields";
