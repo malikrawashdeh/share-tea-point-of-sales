@@ -16,6 +16,7 @@ import { useSession } from "next-auth/react";
 
 import WeatherWidget from "../components/WeatherWidget";
 import UserNavHeader from "../components/UserNavHeader";
+import WeatherWidgetCS from "@/components/WeatherWidgetCS";
 
 const pages = ["Home", "Menu", "Order"];
 
@@ -151,7 +152,7 @@ function ResponsiveAppBar() {
               </Box>
             ) : null}
             <Box>
-              <WeatherWidget />
+              <WeatherWidgetCS />
             </Box>
           </Box>
           {session != null ? (
