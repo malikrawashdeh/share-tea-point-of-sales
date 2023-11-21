@@ -42,7 +42,7 @@ const Fields: React.FC<FieldsProps> = ({selectedDrink}) => {
     }
 
     return (
-        <Paper sx={{marginBottom: '2rem'}}>
+        <>
             {drink !== undefined ? 
                 <form onSubmit={onSubmit}>
                     <label>
@@ -69,8 +69,7 @@ const Fields: React.FC<FieldsProps> = ({selectedDrink}) => {
                 </form>
             : "nothing"
             }
-
-        </Paper>
+        </>
     )
 }
 

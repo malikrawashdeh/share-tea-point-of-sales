@@ -1,10 +1,12 @@
 'use client'
 
 import DrinkTable from "./DrinkTable";
-import { FormEvent, useEffect, useState } from "react";
+import {useEffect, useState } from "react";
 import { drinks } from "@prisma/client";
 import React from "react";
-import Fields from "./Fields";
+import Popup from "./Popup";
+import { Box, CircularProgress } from "@mui/material";
+import FormDialog from "./FormDialog";
 
 const DrinksPage = () => {
     const [selectedDrink, setSelectedDrink] = useState<drinks>();
@@ -14,6 +16,10 @@ const DrinksPage = () => {
     const changeDrink = (newDrink: drinks) => {
         setSelectedDrink(newDrink);
         console.log(newDrink);
+    }
+
+    const handleModalClose = () => {
+        setSelectedDrink(undefined);
     }
 
     const grabDrinks = React.useCallback(async () => {
@@ -31,11 +37,18 @@ const DrinksPage = () => {
 
     return !loading ? (
         <div>
-            <Fields selectedDrink={selectedDrink}></Fields>
-            <DrinkTable drinks={drinks!} changeDrink={changeDrink}></DrinkTable>
+            <DrinkTable drinks={drinks!} changeDrink={changeDrink}/>
+            <FormDialog drink={selectedDrink} handleModalClose={handleModalClose}/>
         </div>
     ) : (
-        <></>
+        <Box 
+            sx={{ display: 'flex' }}
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            minHeight="100vh">
+            <CircularProgress sx={{color: 'red'}}/>
+        </Box>
     )
 }
 

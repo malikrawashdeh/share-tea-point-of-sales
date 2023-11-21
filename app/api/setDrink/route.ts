@@ -4,17 +4,19 @@ import { NextResponse } from "@/node_modules/next/server";
 
 export async function POST(request: Request) {
 
-    const req = await request.formData();
+    const data = await request.json();
+
+    console.log(data);
 
     const updateDrink = await prisma.drinks.update({
         where: {
-            id: parseInt(req.get('id') as string),
+            id: data.id,
         },
         data: {
-            drink_name: req.get('name') as string,
-            category_name: req.get('category') as string,
-            unit_price: parseFloat(req.get('price') as string),
-            desc: req.get('description') as string
+            drink_name: data.drink_name,
+            category_name: data.category_name,
+            unit_price: data.unit_price,
+            desc: data.desc
         }
     })
 
