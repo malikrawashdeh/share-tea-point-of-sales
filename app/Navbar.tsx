@@ -150,7 +150,9 @@ function ResponsiveAppBar() {
                 </Link>
               </Box>
             ) : null}
-            <WeatherWidget />
+            <Box>
+              <WeatherWidget />
+            </Box>
           </Box>
           {session != null ? (
             <UserNavHeader />

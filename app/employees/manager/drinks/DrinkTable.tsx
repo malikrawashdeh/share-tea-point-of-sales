@@ -11,8 +11,7 @@ interface DrinkProps {
 
 const DrinkTable: React.FC<DrinkProps> = ({drinks, changeDrink}) => {
     return drinks.length > 0 ? (
-        <div>
-            <TableContainer component={Paper}>
+            <TableContainer component={Paper} sx={{padding: '1rem'}}>
                 <Table sx={{  }} aria-label="simple table">
                     <TableHead>
                         <TableRow>
@@ -38,7 +37,6 @@ const DrinkTable: React.FC<DrinkProps> = ({drinks, changeDrink}) => {
                     </TableBody>
                 </Table>
             </TableContainer>
-        </div>
     ) : (
         <div>No Drinks Found</div>
     );

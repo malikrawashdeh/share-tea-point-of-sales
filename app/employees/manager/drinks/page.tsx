@@ -5,7 +5,7 @@ import {useEffect, useState } from "react";
 import { drinks } from "@prisma/client";
 import React from "react";
 import Popup from "./Popup";
-import { Box, Button, CircularProgress } from "@mui/material";
+import { Box, Button, CircularProgress, Container } from "@mui/material";
 import FormDialog from "./FormDialog";
 
 const DrinksPage = () => {
@@ -44,13 +44,15 @@ const DrinksPage = () => {
     }, []);
 
     return !loading ? (
-        <div>
-            <Button variant="outlined" sx={{marginBottom: '1.5rem'}} onClick={() => {setSelectedDrink(dummy_drink)}}>
-                Create New Drink
-            </Button>
-            <DrinkTable drinks={drinks!} changeDrink={changeDrink}/>
-            <FormDialog drink={selectedDrink} handleModalClose={handleModalClose}/>
-        </div>
+        <main>
+            <Container sx={{padding: '0.5rem'}}>
+                <Button variant="outlined" sx={{marginBottom: '1.5rem'}} onClick={() => {setSelectedDrink(dummy_drink)}}>
+                    Create New Drink
+                </Button>
+                <DrinkTable drinks={drinks!} changeDrink={changeDrink}/>
+                <FormDialog drink={selectedDrink} handleModalClose={handleModalClose}/>
+            </Container>
+        </main>
     ) : (
         <Box 
             sx={{ display: 'flex' }}
