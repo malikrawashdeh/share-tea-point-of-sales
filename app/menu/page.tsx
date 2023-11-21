@@ -7,6 +7,7 @@ import { drinks } from '@prisma/client';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 
+
 const Menu = () => {
   const [drinks, setDrinks] = useState([]);
   const [selectedDrink, setSelectedDrink] = useState(null);
@@ -41,7 +42,7 @@ const Menu = () => {
                   image="https://static.vecteezy.com/system/resources/thumbnails/024/933/352/small/refreshing-milkshake-with-chocolate-and-fruit-on-wooden-table-background-generated-by-ai-free-photo.jpg"
                 />
                 <CardContent>
-                  <Typography variant="h6" component="div">
+                  <Typography variant="h6" component="div" color="black">
                     {drink.drink_name}
                   </Typography>
                 </CardContent>
@@ -64,18 +65,26 @@ const Menu = () => {
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
-            width: 300,
+            width: 400, // Set the width to your desired size
+            height: 400, // Set the height to your desired size
             bgcolor: 'background.paper',
-            border: '2px solid #000',
-            boxShadow: 24,
+            border: '2px solid red', // Set border color to red
+            borderRadius: 8, // Optional: Add border radius for a rounded appearance
             p: 2,
           }}
         >
-          <Typography variant="h5" component="div" color = "black">
+          {/* Display the image of the drink */}
+          <img
+            src="https://static.vecteezy.com/system/resources/thumbnails/024/933/352/small/refreshing-milkshake-with-chocolate-and-fruit-on-wooden-table-background-generated-by-ai-free-photo.jpg"
+            alt={selectedDrink?.drink_name}
+            style={{ width: '100%', marginBottom: 8 }}
+          />
+
+          <Typography variant="h5" component="div" color="black">
             {selectedDrink?.drink_name}
           </Typography>
-          <Typography variant="body2" id="drink-description" sx={{ mt: 2 }} color = "black">
-            {"selectedDrink?.description"}
+          <Typography variant="body2" id="drink-description" sx={{ mt: 2 }} color="black">
+            {selectedDrink?.desc}
           </Typography>
         </Box>
       </Modal>
