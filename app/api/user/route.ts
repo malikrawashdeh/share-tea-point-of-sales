@@ -48,5 +48,11 @@ export async function POST(req: Request) {
       { user: rest, message: "User created successfully" },
       { status: 201 }
     );
-  } catch (error) {}
+  } catch (error: any) {
+    console.log(error);
+    return NextResponse.json(
+      { user: null, message: error.message },
+      { status: 500 }
+    );
+  }
 }
