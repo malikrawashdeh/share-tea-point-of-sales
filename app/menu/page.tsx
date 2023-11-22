@@ -9,8 +9,8 @@ import Box from '@mui/material/Box';
 
 
 const Menu = () => {
-  const [drinks, setDrinks] = useState([]);
-  const [selectedDrink, setSelectedDrink] = useState(null);
+  const [drinks, setDrinks] = useState(new Array<drinks>());
+  const [selectedDrink, setSelectedDrink] = useState<drinks | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,7 +20,7 @@ const Menu = () => {
     fetchData();
   }, []); 
 
-  const handleCardClick = (drink) => {
+  const handleCardClick = (drink: drinks) => {
     setSelectedDrink(drink);
   };
 
@@ -37,7 +37,7 @@ const Menu = () => {
               <CardActionArea>
                 <CardMedia
                   component="img"
-                  alt={drink.drink_name}
+                  alt={drink!.drink_name!}
                   height="200"
                   image="https://static.vecteezy.com/system/resources/thumbnails/024/933/352/small/refreshing-milkshake-with-chocolate-and-fruit-on-wooden-table-background-generated-by-ai-free-photo.jpg"
                 />
@@ -76,7 +76,7 @@ const Menu = () => {
           {/* Display the image of the drink */}
           <img
             src="https://static.vecteezy.com/system/resources/thumbnails/024/933/352/small/refreshing-milkshake-with-chocolate-and-fruit-on-wooden-table-background-generated-by-ai-free-photo.jpg"
-            alt={selectedDrink?.drink_name}
+            alt={selectedDrink?.drink_name!}
             style={{ width: '100%', marginBottom: 8 }}
           />
 
