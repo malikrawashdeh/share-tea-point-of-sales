@@ -1,7 +1,6 @@
 'use client'
 
 import { Card, CardActionArea, CardContent, CardMedia, Container, Grid, Typography } from "@mui/material";
-import Link from "next/link";
 import React from "react";
 
 interface CategoriesProps { 
@@ -25,10 +24,6 @@ const Categories: React.FC<CategoriesProps> = ({categories, setTableState}) => {
                         <CardContent>
                             <Typography gutterBottom variant="h5" component="div">
                                 {value}
-                            </Typography>
-                            <Typography variant="body2" color="text.secondary">
-                                Lizards are a widespread group of squamate reptiles, with over 6,000
-                                species, ranging across all continents except Antarctica
                             </Typography>
                         </CardContent>
                 </CardActionArea>

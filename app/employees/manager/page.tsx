@@ -5,15 +5,29 @@ import Restock from "./restock";
 
 export default function Manager() {
     return (
-        <main>
-            <Container style={{backgroundColor: '#FFFFFF', height: '100%', marginTop: '5rem'}}>
+        <main >
+            {/*Reports*/}
+            <Container style ={{backgroundColor: '#fff', height: '150vh', marginTop: '50px'}}>
+                <Container style={{alignItems:'center', justifyContent:'center'}}>
+                    <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }} style={{padding: '1rem',}}>
+                        <TableContainer>
+
+                        </TableContainer>
+                    </Grid>
+                </Container>
+
+                {/*Chart*/}
+                <Container style={{alignItems:'center', justifyContent:'center'}}>
+                    
+                </Container>
+
                 {/*Item Buttons*/}
                 <Container style={{display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center',
                         height: '10vh',
-                        marginBottom: '2rem',
-                        marginTop: '2rem'}}>
+                        marginBottom: '1rem',
+                        marginTop: '1rem'}}>
                     <Button style={{margin: '0 auto', border: '2px solid #000', backgroundColor: '#000', color: '#fff'}}>Ingredients </Button>
                     <Button style={{margin: '0 auto', border: '2px solid #000', backgroundColor: '#000', color: '#fff'}}>Drinks</Button>
                 </Container>
