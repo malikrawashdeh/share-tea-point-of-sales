@@ -99,6 +99,11 @@ function ResponsiveAppBar() {
                   </Link>
                 </MenuItem>
               ))}
+              <MenuItem>
+                <Box>
+                  <WeatherWidgetCS />
+                </Box>
+              </MenuItem>
               {session?.user.role == "admin" ||
               session?.user.role === "manager" ||
               session?.user.role == "employee" ? (
@@ -151,9 +156,9 @@ function ResponsiveAppBar() {
                 </Link>
               </Box>
             ) : null}
-            <Box>
-              <WeatherWidgetCS />
-            </Box>
+              <Box sx={{display: "flex" }}>
+                <WeatherWidgetCS/>
+              </Box>
           </Box>
           {session != null ? (
             <UserNavHeader />

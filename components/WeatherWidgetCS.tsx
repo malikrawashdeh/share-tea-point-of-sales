@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { Card, CardContent, Typography, Button, Container } from "@mui/material";
+import { Card, CardContent, Typography, Button, Container, CircularProgress, Box } from "@mui/material";
 
 interface WeatherData {
   name: string;
@@ -91,7 +91,7 @@ const WeatherWidgetCS: React.FC = () => {
   }, []);
 
   return (
-    <Container sx={{justifyContent: 'center', alignContent: 'center', background: 'white', borderRadius: '15px'}}>
+    <Container sx={{alignContent: 'center', justifyContent:'center', verticalAlign: 'center', textAlign: 'center', background: 'white', borderRadius: '15px'}}>
         {/* <Typography variant="h5" component="div">
           Weather Widget
         </Typography> */}
@@ -105,7 +105,9 @@ const WeatherWidgetCS: React.FC = () => {
             </Typography> */}
           </>
         ) : (
-            <Typography color="black" variant="body1">Loading Weather</Typography>
+          <Box>
+            <CircularProgress size="2rem" sx={{color: 'red'}}/>
+          </Box>
         )}
     </Container>
   );

@@ -7,7 +7,6 @@ interface GoogleSignInButtonProps {
   children: ReactNode;
 }
 const GoogleSignInButton: FC<GoogleSignInButtonProps> = ({ children }) => {
-  const router = useRouter();
   const loginWithGoogle = () => {
     const signedInUser = signIn("google", { callbackUrl: "/" });
   };
