@@ -4,6 +4,7 @@ import { Box, CircularProgress } from "@mui/material";
 import React, { useEffect } from "react";
 import { Chart } from "react-google-charts";
 import { useState } from "react";
+import {GET} from "../../api/salesDataRange/route"
 
 type salesResponseItem = {
     drink_id: Number;
@@ -53,25 +54,29 @@ export default function SalesChart() {
     };
 
     return !loading ? (
-        <>
-        {console.log(data)}
-        {console.log(chartFmtData)}
+        <Box 
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        minHeight="100vh" // You can adjust this to fit your design needs
+        sx={{ width: '100vw', maxWidth: '100%' }}
+        >
         <Chart
         chartType="BarChart"
-        width="100%"
+        width="auto"
         height="400px"
         data={chartFmtData}
         options={options}
         />
-        </>
-    ) : (
-        <Box 
-            sx={{ display: 'flex' }}
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            minHeight="100vh">
-            <CircularProgress sx={{color: 'red'}}/>
         </Box>
-    );
+        ) : (
+        <Box 
+        sx={{ display: 'flex' }}
+        justifyContent="center"
+        alignItems="center"
+        minHeight="100vh"
+        >
+        <CircularProgress sx={{ color: 'red' }}/>
+        </Box>
+        );
 }
