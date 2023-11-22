@@ -73,8 +73,9 @@ const options: NextAuthOptions = {
       return token;
     },
     // If you want to use the role in client components
-    async session({ session, token }) {
+    async session({ session, token, user }) {
       if (session?.user) session.user.role = token.role;
+      if (session?.user) session.user.id = token.sub as string;
       return session;
     },
   },
