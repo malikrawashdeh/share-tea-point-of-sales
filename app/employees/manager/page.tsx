@@ -1,7 +1,9 @@
+
 import { Button, Container, Grid, Table, TableCell, TableContainer, TableHead, TableRow, colors } from "@/node_modules/@mui/material/index";
 import SalesChart from "./SalesChart";
 import Excess from "./excess";
 import Restock from "./restock";
+import Dbutton from "./button";
 
 export default function Manager() {
     return (
@@ -28,8 +30,8 @@ export default function Manager() {
                         height: '10vh',
                         marginBottom: '1rem',
                         marginTop: '1rem'}}>
-                    <Button style={{margin: '0 auto', border: '2px solid #000', backgroundColor: '#000', color: '#fff'}}>Ingredients </Button>
-                    <Button style={{margin: '0 auto', border: '2px solid #000', backgroundColor: '#000', color: '#fff'}}>Drinks</Button>
+                    <Dbutton buttonText = "Drinks" destination = "/employees/manager/drinks"></Dbutton>
+                    <Dbutton buttonText = "Drinks" destination = "/employees/manager/ingredients"></Dbutton>
                 </Container>
 
                 {/*Reports*/}
