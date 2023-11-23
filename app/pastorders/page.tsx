@@ -3,7 +3,9 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { Order } from "@/types/Order";
-import CircularProgress from "@mui/material/CircularProgress";
+import LinearProgress from "@mui/material/LinearProgress";
+import AccordianOrder from "@/components/AccordianOrder";
+import { Card, Typography } from "@mui/material";
 
 const page: React.FC<{}> = () => {
   const [orders, setOrders] = useState<Order[] | null>(null);
@@ -49,31 +51,27 @@ const page: React.FC<{}> = () => {
 
   // material ui loading spinner if loading
   return (
-    <div>
-      <h1>Orders</h1>
+    <div style={{ width: "75%" }}>
+      <Card
+        sx={{
+          backgroundColor: "#ce0e2d",
+          color: "white",
+          padding: "1rem",
+          marginBottom: "1rem",
+        }}
+      >
+        <Typography variant="h4">Past Orders</Typography>
+      </Card>
       {loading && (
         <div>
           <h2>Loading...</h2>
-          <CircularProgress color="inherit" />
+          <LinearProgress color="inherit" />
         </div>
       )}
-      {orders && orders[0].order_id}
       {orders && (
-        <div>
+        <div style={{ width: "%100" }}>
           {orders.map((order) => (
-            <div key={order.order_id}>
-              <h2>Order #{order.order_id}</h2>
-              <p>Order placed on {String(order.created_at)}</p>
-              <p>Order total: ${order.total_price}</p>
-              <p>Order items:</p>
-              <ul>
-                {order.drinks.map((item) => (
-                  <li key={item.id}>
-                    {item.drink_name} - ${item.unit_price}
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <AccordianOrder key={order.order_id} order={order} />
           ))}
         </div>
       )}
