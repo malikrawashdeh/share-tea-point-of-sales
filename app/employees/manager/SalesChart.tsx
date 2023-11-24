@@ -4,7 +4,8 @@ import { Box, CircularProgress } from "@mui/material";
 import React, { useEffect } from "react";
 import { Chart } from "react-google-charts";
 import { useState } from "react";
-import {GET} from "../../api/salesDataRange/route"
+import { getSalesData } from "@/lib/orderQueries";
+import dayjs, { Dayjs } from "dayjs";
 
 type salesResponseItem = {
     drink_id: Number;
@@ -12,21 +13,33 @@ type salesResponseItem = {
     sales: Number;
 };
 
-export default function SalesChart() {
+interface props {
+    beginDate: Dayjs | null;
+    endDate: Dayjs | null;
+};
+
+const SalesChart: React.FC<props> = ({ beginDate, endDate }) => {
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState(new Array<salesResponseItem>());
+    const [chartBeginDate, setChartBeginDate] = useState(dayjs(new Date()));
+    const [chartEndDate, setChartEndDate] = useState(dayjs(new Date()));
 
-    const getData = React.useCallback(async () => {
-        setLoading(true);
-        const response = await fetch('/api/salesDataRange', {});
-        const result = await response.json();
-        setData(result.result);
-        setLoading(false);
+    const getData = React.useCallback(async (beginDate: Date, endDate: Date) => {
+        const result = await getSalesData(beginDate, endDate);
+        setData(result);
     }, []);
 
     useEffect(() => {
-        getData();
-    }, [getData]);
+        setLoading(true);
+        if (beginDate !== null && endDate !== null) {
+            if (beginDate !== chartBeginDate || endDate !== chartEndDate) {
+                setChartBeginDate(beginDate);
+                setChartEndDate(endDate);
+            }
+            getData(beginDate.toDate(), endDate.toDate());            
+        }
+        setLoading(false);
+    }, [getData, beginDate, endDate]);
 
     const chartFmtData = [
         [
@@ -80,3 +93,5 @@ export default function SalesChart() {
         </Box>
         );
 }
+
+export default SalesChart;
