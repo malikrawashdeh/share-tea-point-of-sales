@@ -72,3 +72,5 @@ const Fields: React.FC<FieldsProps> = ({selectedIngredient}) => {
         </>
     )
 }
+
+export default Fields

@@ -88,7 +88,7 @@ const FormDialog: React.FC<FormDialogProps> = ({ingredient, handleModalClose}) =
               autoFocus
               margin="dense"
               id="category_name"
-              label="ingredient Category"
+              label="ingredient unit price"
               type="text"
               fullWidth
               variant="standard"
@@ -99,24 +99,24 @@ const FormDialog: React.FC<FormDialogProps> = ({ingredient, handleModalClose}) =
               autoFocus
               margin="dense"
               id="unit_price"
-              label="ingredient Price"
+              label="ingredient quantity"
               type="number"
               fullWidth
               variant="standard"
-              defaultValue={ingredient?.unit_price}
-              onChange={(e) => {handle_unit_price(e)}}
+              defaultValue={ingredient?.quantity}
+              onChange={(e) => {handle_ingredient_quantity(e)}}
             />
             <TextField
               autoFocus
               multiline
               margin="dense"
               id="desc"
-              label="ingredient Description"
+              label="ingredient minimum quantity"
               type="text"
               fullWidth
               variant="standard"
-              defaultValue={ingredient?.desc}
-              onChange={(e) => {handle_ingredient_desc(e)}}
+              defaultValue={ingredient?.min_quantity}
+              onChange={(e) => {handle_ingredient_min_quantity(e)}}
             />
           </DialogContent>
           <DialogActions>
