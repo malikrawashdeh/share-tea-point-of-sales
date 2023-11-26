@@ -4,13 +4,13 @@ import { ingredients } from "@prisma/client";
 import prisma from "./prisma";
 
 export const getIngredients = async () => {
-    const drinks = await prisma.ingredients.findMany({
+    const ingredients = await prisma.ingredients.findMany({
         orderBy: [
             {id: 'asc',}
         ]
     });
 
-    return drinks;
+    return ingredients;
 }
 
 

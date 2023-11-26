@@ -31,7 +31,7 @@ export default function Manager() {
                         marginBottom: '1rem',
                         marginTop: '1rem'}}>
                     <Dbutton buttonText = "Drinks" destination = "/employees/manager/drinks"></Dbutton>
-                    <Dbutton buttonText = "Drinks" destination = "/employees/manager/ingredients"></Dbutton>
+                    <Dbutton buttonText = "Ingredients" destination = "/employees/manager/ingredients"></Dbutton>
                 </Container>
 
                 {/*Reports*/}

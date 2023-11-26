@@ -1,6 +1,6 @@
 'use client'
 
-import DrinkTable from "./IngredientsTable";
+import IngredientTable from "./IngredientsTable";
 import {useEffect, useState } from "react";
 import { ingredients } from "@prisma/client";
 import React from "react";
@@ -8,49 +8,49 @@ import Popup from "./Popup";
 import { Box, Button, CircularProgress, Container } from "@mui/material";
 import FormDialog from "./FormDialog";
 
-const DrinksPage = () => {
-    const [selectedDrink, setSelectedDrink] = useState<drinks>();
-    const [drinks, setDrinks] = useState<drinks[]>();
+const IngredientsPage = () => {
+    const [selectedIngredient, setSelectedIngredient] = useState<ingredients>();
+    const [ingredients, setIngredients] = useState<ingredients[]>();
     const [loading, setLoading] = useState(true);
 
-    const dummy_drink: drinks = {
+    const dummy_ingredient: ingredients = {
         id: -1,
-        drink_name: 'N/A',
-        category_name: 'N/A',
-        unit_price: -1.0,
-        desc: 'N/A'
+        name: 'N/A',
+        unit_price: "N/A",
+        quantity: -1,
+        min_quantity: -1
     };
 
-    const changeDrink = (newDrink: drinks) => {
-        setSelectedDrink(newDrink);
-        console.log(newDrink);
+    const changeIngredient = (newIngredient: ingredients) => {
+        setSelectedIngredient(newIngredient);
+        console.log(newIngredient);
     }
 
     const handleModalClose = () => {
-        setSelectedDrink(undefined);
+        setSelectedIngredient(undefined);
     }
 
-    const grabDrinks = React.useCallback(async () => {
+    const grabIngredients = React.useCallback(async () => {
         setLoading(true);
-        const result = await fetch('/api/drinks/', {});
+        const result = await fetch('/api/ingredients/', {});
         const data = await result.json();
         console.log(data);
-        setDrinks(data.result);
+        setIngredients(data.result);
         setLoading(false);
     }, []);
 
     useEffect(() => {
-        grabDrinks();
+        grabIngredients();
     }, []);
 
     return !loading ? (
         <main>
             <Container sx={{padding: '0.5rem'}}>
-                <Button variant="outlined" sx={{marginBottom: '1.5rem'}} onClick={() => {setSelectedDrink(dummy_drink)}}>
-                    Create New Drink
+                <Button variant="outlined" sx={{marginBottom: '1.5rem'}} onClick={() => {setSelectedIngredient(dummy_ingredient)}}>
+                    Create New Ingredient
                 </Button>
-                <DrinkTable drinks={drinks!} changeDrink={changeDrink}/>
-                <FormDialog drink={selectedDrink} handleModalClose={handleModalClose}/>
+                <IngredientTable ingredients={ingredients!} changeIngredient={changeIngredient}/>
+                <FormDialog ingredient={selectedIngredient} handleModalClose={handleModalClose}/>
             </Container>
         </main>
     ) : (
@@ -65,4 +65,4 @@ const DrinksPage = () => {
     )
 }
 
-export default DrinksPage;
+export default IngredientsPage;
