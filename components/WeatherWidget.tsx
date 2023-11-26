@@ -1,48 +1,32 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { Card, CardContent, Typography, Button } from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";
+import { createKey } from "next/dist/shared/lib/router/router";
 
-interface WeatherData {
-  name: string;
-  main: {
-    temp: number;
-  };
-  weather: {
-    description: string;
-  }[];
-}
+/* Instruments */
+import {
+  useSelector,
+  useDispatch,
+  selectTemp,
+  getWeatherAsync,
+} from "@/lib/redux";
+import Image from "next/image";
 
 const WeatherWidget: React.FC = () => {
-  const [cur_temp, setTemp] = useState<number | null>(null);
-
-  const fetchWeatherData = (lat: number, lon: number) => {
-    console.log("fetching...." + lat + " " + lon);
-    fetch(
-      `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m&temperature_unit=fahrenheit&forecast_days=1`
-    )
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(
-            `Failed to fetch weather data: ${response.statusText}`
-          );
-        }
-        return response.json();
-      })
-      .then((data) => {
-        const temperature = data.current.temperature_2m;
-        setTemp(temperature);
-      })
-      .catch((error) => {
-        console.error("Error fetching weather data:", error);
-      });
-  };
+  const { temp: cur_temp, status, icon } = useSelector(selectTemp);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    if (navigator.geolocation) {
+    if (!cur_temp && navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
-          fetchWeatherData(latitude, longitude);
+          // use redux to fetch weather data
+          // only fetch if weather data is not already in redux store
+          if (cur_temp === undefined) {
+            dispatch(getWeatherAsync({ lat: latitude, long: longitude }));
+          }
         },
         (error) => {
           console.error("Error getting geolocation:", error);
@@ -51,33 +35,31 @@ const WeatherWidget: React.FC = () => {
     } else {
       console.error("Geolocation is not supported by your browser");
     }
-  }, []);
+  }, [dispatch, cur_temp]);
 
   return (
-    <Card>
-      <CardContent>
-        {/* <Typography variant="h5" component="div">
-          Weather Widget
-        </Typography> */}
-        {cur_temp ? (
-          <div>
-            {/* <Typography variant="h6">City: {weatherData.name}</Typography> */}
-            <Typography variant="body1">Temperature: {cur_temp}°F</Typography>
-            {/* <Typography variant="body1">
-              Weather: {weatherData.weather[0].description}
-            </Typography> */}
-          </div>
-        ) : (
-          <Button
-            variant="contained"
-            onClick={() => fetchWeatherData(0, 0)} // Provide default coordinates if geolocation is not available
-            style={{ marginTop: "10px" }}
-          >
-            Get Weather for Current Location
-          </Button>
-        )}
-      </CardContent>
-    </Card>
+    <div>
+      {status === "idle" && cur_temp ? (
+        // display current temperature and weather icon side by side
+        <span
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            alignItems: "center",
+          }}
+        >
+          {/* insert image of current weather icon */}
+          <img
+            src={`http://openweathermap.org/img/w/${icon}.png`}
+            alt="Weather Icon"
+            style={{ marginRight: "0.5rem" }}
+          />
+          <Typography variant="body1">{cur_temp}°F</Typography>
+        </span>
+      ) : (
+        <CircularProgress />
+      )}
+    </div>
   );
 };
 

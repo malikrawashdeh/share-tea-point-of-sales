@@ -27,7 +27,11 @@ const monthMap = [
 ];
 
 function AccordianOrder({ order }: AccordianProps) {
-  const date = new Date(order.created_at);
+  // 2023-10-03
+  // split date using substring
+  const year = String(order.created_at).substring(0, 4);
+  const month = String(order.created_at).substring(5, 7);
+  const day = String(order.created_at).substring(8, 10);
   return (
     // make accordian take up full width
     <Accordion
@@ -51,8 +55,8 @@ function AccordianOrder({ order }: AccordianProps) {
           </Grid>
           <Grid item xs={4}>
             <Typography>{`${
-              monthMap[Number(date.getMonth()) - 1]
-            } ${date.getDay()}, ${date.getFullYear()}`}</Typography>
+              monthMap[Number(month) - 1]
+            } ${day}, ${year}`}</Typography>
           </Grid>
           <Grid item xs={3}>
             <Typography>{`Total: $${order.total_price}`}</Typography>
@@ -62,7 +66,7 @@ function AccordianOrder({ order }: AccordianProps) {
       <AccordionDetails>
         {order.drinks.map((item, index) => (
           <Grid
-            id={item.id.toString()}
+            key={item.id.toString()}
             container
             spacing={2}
             justifyContent="space-between"

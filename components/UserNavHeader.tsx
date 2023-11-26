@@ -11,7 +11,7 @@ import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
 
 function UserNavHeader() {
-  const settings = ["Account", "Logout"];
+  const settings = ["Account", "Logout", "Past Orders"];
   const signedOut = ["Login", "Sign Up"];
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
@@ -27,6 +27,8 @@ function UserNavHeader() {
       return "/api/auth/signin";
     } else if (setting === "Sign Up") {
       return "/signup";
+    } else if (setting === "Past Orders") {
+      return "/pastorders";
     }
     return "/";
   };
@@ -61,12 +63,14 @@ function UserNavHeader() {
       >
         {settings.map((setting) => (
           <MenuItem key={setting}>
-            <Typography
-              textAlign="center"
-              onClick={() => (setting === "Logout" ? signOut() : undefined)}
-            >
-              {setting}
-            </Typography>
+            <Link href={getlink(setting)}>
+              <Typography
+                textAlign="center"
+                onClick={() => (setting === "Logout" ? signOut() : undefined)}
+              >
+                {setting}
+              </Typography>
+            </Link>
           </MenuItem>
         ))}
       </Menu>
