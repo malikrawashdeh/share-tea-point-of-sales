@@ -35,7 +35,7 @@ const Fields: React.FC<FieldsProps> = ({selectedIngredient}) => {
         event.preventDefault()
      
         const formData = new FormData(event.currentTarget)
-        const response = await fetch('/api/setDrink', {
+        const response = await fetch('/api/setIngredient', {
           method: 'POST',
           body: formData,
         })
@@ -51,7 +51,7 @@ const Fields: React.FC<FieldsProps> = ({selectedIngredient}) => {
                     </label>
                     <label>
                         Name:
-                        <input type="text" name="drink_name" value={ingredient.name!} onChange={(e) => onChange(e)}/>
+                        <input type="text" name="name" value={ingredient.name!} onChange={(e) => onChange(e)}/>
                     </label>
                     <label>
                         Quantity:

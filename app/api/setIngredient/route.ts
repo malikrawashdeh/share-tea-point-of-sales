@@ -25,7 +25,7 @@ export async function POST(request: Request) {
         return NextResponse.json({});
     }
 
-    const updateDrink = await prisma.ingredients.update({
+    const updateIngredient = await prisma.ingredients.update({
         where: {
             id: data.id,
         },
