@@ -1,7 +1,6 @@
 import { FC, ReactNode } from "react";
 import { Button } from "./ui/button";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/router";
 
 interface GoogleSignInButtonProps {
   children: ReactNode;
