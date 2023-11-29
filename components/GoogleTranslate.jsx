@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { SelectPicker } from "rsuite";
 
 const GoogleTranslate = () => {
     useEffect(() => {
