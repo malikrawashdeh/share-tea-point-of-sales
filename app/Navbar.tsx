@@ -17,6 +17,7 @@ import { useSession } from "next-auth/react";
 import WeatherWidget from "../components/WeatherWidget";
 import UserNavHeader from "../components/UserNavHeader";
 import WeatherWidgetCS from "@/components/WeatherWidgetCS";
+import GoogleTranslate from "@/components/GoogleTranslate";
 
 const pages = ["Home", "Menu", "Order"];
 
@@ -159,6 +160,7 @@ function ResponsiveAppBar() {
               <Box sx={{display: "flex" }}>
                 <WeatherWidgetCS/>
               </Box>
+              <GoogleTranslate/>
           </Box>
           {session != null ? (
             <UserNavHeader />

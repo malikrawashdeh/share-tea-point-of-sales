@@ -7,7 +7,7 @@ import LinearProgress from "@mui/material/LinearProgress";
 import AccordianOrder from "@/components/AccordianOrder";
 import { Card, Typography } from "@mui/material";
 
-const page: React.FC<{}> = () => {
+const Page = () => {
   const [orders, setOrders] = useState<Order[] | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<Boolean>(true);
@@ -80,4 +80,4 @@ const page: React.FC<{}> = () => {
   );
 };
 
-export default page;
+export default Page;
