@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import dayjs, { Dayjs } from "dayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import Link from "next/link";
+import Subheader from "@/components/Subheader";
 
 export default function Manager() {
     const [beginDateReports, setBeginDateReports] = useState<Dayjs | null>(dayjs('2023-09-01'));
@@ -25,7 +26,7 @@ export default function Manager() {
             <Container maxWidth="sm">
                 <Paper sx={{padding: '1rem'}}>
                     {/*Item Buttons*/}
-                    <Typography variant="h3" textAlign="center">Tables</Typography>
+                    <Subheader text="Tables"/>
                     <Container style={{display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center',
@@ -43,7 +44,7 @@ export default function Manager() {
                     </Link> 
                     </Button>
                     <Button style={{margin: '0 auto', border: '2px solid #000', backgroundColor: '#ce0e2d', color: '#ffffff'}}>
-                    <Link href="/employees/manager/drinks">
+                    <Link href="/employees/manager/users">
                         Users
                     </Link> 
                     </Button>
@@ -52,7 +53,7 @@ export default function Manager() {
             </Container>
             <Container maxWidth="md">
                 <Paper sx={{padding: '1rem', my:'2rem'}}>
-                    <Typography variant="h3" textAlign="center">Reports</Typography>
+                    <Subheader text="Reports"/>
                     {/*Report Date*/}
 
                     <Container style={{display: 'flex',
@@ -95,7 +96,7 @@ export default function Manager() {
             </Container>
             <Container maxWidth="md">
                 <Paper sx={{padding: '1rem', my:'2rem'}}>
-                    <Typography variant="h3" textAlign="center">Drink Sales</Typography>
+                    <Subheader text="Drink Sales"/>
                     {/*Chart*/}
                     <Container style={{display: 'flex',
                         justifyContent: 'center',

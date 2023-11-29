@@ -1,10 +1,11 @@
+import Subheader from "@/components/Subheader";
 import { Card, CardActionArea, CardContent, CardMedia, Container, Paper, Typography } from "@mui/material";
 
 export default function Employees() {
   return (
     // create me centered container with h1 and p
     <Container maxWidth="sm">
-      <Typography variant="h3" textAlign="center">Employees</Typography>
+      <Subheader text="Employees"/>
       <Container sx={{my:'auto'}}>
         <Card sx={{my:'1rem'}}>
             <CardActionArea href="/employees/cashier">
