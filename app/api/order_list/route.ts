@@ -44,6 +44,12 @@ export async function GET(req: NextRequest) {
         { status: 400 }
       );
     }
+
+    // get count of orders
+    const count = await prisma.orders.count({
+      where: { employee_id: Number(user_id) },
+    });
+
     const user_orders: orders[] = await prisma.orders.findMany({
       where: { employee_id: Number(user_id) },
       orderBy: { created_at: "desc" },
@@ -90,7 +96,13 @@ export async function GET(req: NextRequest) {
     }
 
     return NextResponse.json(
-      { orders: response_orders, message: "Orders found" },
+      {
+        orders: response_orders,
+        message: "Orders found",
+        page: page || 0,
+        pageSize,
+        pageCount: Math.ceil(count / pageSize),
+      },
       { status: 200 }
     );
   } catch (error: any) {
