@@ -1,10 +1,9 @@
 import prisma from "@/lib/prisma";
+import { user_role } from "@prisma/client";
 import { NextResponse } from "next/server";
 
-export async function GET(request: Request) {
+export async function POST(request: Request) {
     const data = await request.json();
-
-    console.log(data);
 
     if (data.id == -1) {
         const postedUser = await prisma.users.create({
