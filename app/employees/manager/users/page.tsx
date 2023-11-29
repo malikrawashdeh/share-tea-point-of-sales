@@ -6,6 +6,7 @@ import { user_role, users } from "@prisma/client";
 import React from "react";
 import { Box, Button, CircularProgress, Container } from "@mui/material";
 import FormDialog from "./FormDialog";
+import Link from "next/link";
 
 const Page = () => {
     const [selectedUser, setSelectedUser] = useState<users>();
@@ -46,6 +47,11 @@ const Page = () => {
     return !loading ? (
         <main>
             <Container sx={{padding: '0.5rem'}}>
+                <Link href="/employees/manager">
+                    <Button variant="contained" sx={{marginBottom: '1.5rem', mx: '1rem'}} style={{backgroundColor: '#ce0e2d'}}>
+                        Back
+                    </Button>
+                </Link>
                 <Button variant="contained" sx={{marginBottom: '1.5rem'}} style={{backgroundColor: '#ce0e2d'}} onClick={() => {setSelectedUser(dummy_user)}}>
                     Create New User
                 </Button>

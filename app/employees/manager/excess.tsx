@@ -29,17 +29,17 @@ const Excess: React.FC<props> = ({ beginDate }) => {
         <TableContainer sx={{color:'white'}}>
             <Table sx={{ color:'white' }} aria-label="simple table">
                     <TableHead>
-                        <TableRow sx={{color: 'white'}}>
-                            <TableCell sx={{color: 'white'}} align="right">Ingredient</TableCell>
-                            <TableCell sx={{color: 'white'}} align="right">Current Quantity</TableCell>
+                        <TableRow sx={{}}>
+                            <TableCell sx={{}} align="right">Ingredient</TableCell>
+                            <TableCell sx={{}} align="right">Current Quantity</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {data.map((row) => (
                             <TableRow
-                            key={row.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } , color:'white'}}>
-                            <TableCell sx={{color: 'white'}} align="right">{row.name}</TableCell>
-                            <TableCell sx={{color: 'white'}} align="right">{row.quantity}</TableCell>
+                            key={row.id} sx={{ '&:last-child td, &:last-child th': { border: 0 }}}>
+                            <TableCell sx={{}} align="right">{row.name}</TableCell>
+                            <TableCell sx={{}} align="right">{row.quantity}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

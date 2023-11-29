@@ -7,6 +7,7 @@ import React from "react";
 import Popup from "./Popup";
 import { Box, Button, CircularProgress, Container } from "@mui/material";
 import FormDialog from "./FormDialog";
+import Link from "next/link";
 
 const IngredientsPage = () => {
     const [selectedIngredient, setSelectedIngredient] = useState<ingredients>();
@@ -46,7 +47,12 @@ const IngredientsPage = () => {
     return !loading ? (
         <main>
             <Container sx={{padding: '0.5rem'}}>
-                <Button variant="outlined" sx={{marginBottom: '1.5rem'}} onClick={() => {setSelectedIngredient(dummy_ingredient)}}>
+                <Link href="/employees/manager">
+                    <Button variant="contained" sx={{marginBottom: '1.5rem', mx: '1rem'}} style={{backgroundColor: '#ce0e2d'}}>
+                        Back
+                    </Button>
+                </Link>
+                <Button variant="contained" sx={{marginBottom: '1.5rem'}} style={{backgroundColor: '#ce0e2d'}} onClick={() => {setSelectedIngredient(dummy_ingredient)}}>
                     Create New Ingredient
                 </Button>
                 <IngredientTable ingredients={ingredients!} changeIngredient={changeIngredient}/>

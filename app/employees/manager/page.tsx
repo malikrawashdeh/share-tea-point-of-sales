@@ -1,6 +1,7 @@
 'use client'
 
-import { Button, Container, Grid, Table, TableCell, TableContainer, TableHead, TableRow, colors } from "@/node_modules/@mui/material/index";
+import { Button, Container, Grid, Table, TableCell, TableContainer, TableHead, TableRow, colors, Paper } from "@/node_modules/@mui/material/index";
+import Typography from "@mui/material/Typography";
 import { DateField } from '@mui/x-date-pickers/DateField';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo'; 
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -21,94 +22,107 @@ export default function Manager() {
 
     return (
         <main>
-            <Container style ={{color:'white', height: '150vh', marginTop: '50px', borderRadius: '15px', background:'grey'}}>
-
-                {/*Item Buttons*/}
-                <Container style={{display: 'flex',
+            <Container maxWidth="sm">
+                <Paper sx={{padding: '1rem'}}>
+                    {/*Item Buttons*/}
+                    <Typography variant="h3" textAlign="center">Tables</Typography>
+                    <Container style={{display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center',
-                        height: '10vh',
                         marginBottom: '1rem',
-                        marginTop: '1rem'}}>
-                    <Button style={{margin: '0 auto', border: '2px solid #000', backgroundColor: '#000', color: '#fff'}}>
-                    <Link href="/employees/manager/ingredients">
-                        Ingredients
-                    </Link> 
-                    </Button>
-                    <Button style={{margin: '0 auto', border: '2px solid #000', backgroundColor: '#000', color: '#fff'}}>
+                        marginTop: '1rem',
+                        }}>
+                    <Button style={{margin: '0 auto', border: '2px solid #000', backgroundColor: '#ce0e2d', color: '#ffffff'}}>
                     <Link href="/employees/manager/drinks">
                         Drinks
                     </Link> 
                     </Button>
+                    <Button style={{margin: '0 auto', border: '2px solid #000', backgroundColor: '#ce0e2d', color: '#ffffff'}}>
+                    <Link href="/employees/manager/ingredients">
+                        Ingredients
+                    </Link> 
+                    </Button>
+                    <Button style={{margin: '0 auto', border: '2px solid #000', backgroundColor: '#ce0e2d', color: '#ffffff'}}>
+                    <Link href="/employees/manager/drinks">
+                        Users
+                    </Link> 
+                    </Button>
                 </Container>
-                {/*Item Buttons*/}
+                </Paper>
+            </Container>
+            <Container maxWidth="md">
+                <Paper sx={{padding: '1rem', my:'2rem'}}>
+                    <Typography variant="h3" textAlign="center">Reports</Typography>
+                    {/*Report Date*/}
 
-                {/*Report Date*/}
+                    <Container style={{display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            height: '10vh',
+                            marginBottom: '1rem',
+                            marginTop: '1rem'}}>
 
-                <Container style={{display: 'flex',
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DemoContainer components={['DateField', 'DateField']}>
+                                <DateField
+                                label="Beign Date"
+                                value={beginDateReports}
+                                onChange={(newValue) => setBeginDateReports(newValue)}
+                                />
+                                <DateField
+                                label="End Date"
+                                value={endDateReports}
+                                onChange={(newValue) => setEndDateReports(newValue)}
+                                />
+                            </DemoContainer>
+                        </LocalizationProvider>
+                    </Container>
+
+                    {/*Reports*/}
+                    <Container style={{alignItems:'center', justifyContent:'center'}}>
+                        <Grid container spacing={{  }} columns={{ xs: 4, sm: 8, md: 12 }} style={{padding: '1rem',}}>
+                            <Grid item xs={2} sm={6} key={1} style={{}} sx={{ border: 1}}>
+                                <h1>Excess Report</h1>
+                                <Excess beginDate={beginDateReports!}/>
+                            </Grid>
+                            <Grid item xs={2} sm={6} key={1} style={{}} sx={{ border: 1}}>
+                                <h1>Restock Report</h1>
+                                <Restock/>
+                            </Grid>
+                        </Grid>
+                    </Container>
+                </Paper>
+            </Container>
+            <Container maxWidth="md">
+                <Paper sx={{padding: '1rem', my:'2rem'}}>
+                    <Typography variant="h3" textAlign="center">Drink Sales</Typography>
+                    {/*Chart*/}
+                    <Container style={{display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center',
-                        height: '10vh',
                         marginBottom: '1rem',
                         marginTop: '1rem'}}>
 
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DemoContainer components={['DateField', 'DateField']}>
-                            <DateField
-                            label="Beign Date"
-                            value={beginDateReports}
-                            onChange={(newValue) => setBeginDateReports(newValue)}
-                            />
-                            <DateField
-                            label="End Date"
-                            value={endDateReports}
-                            onChange={(newValue) => setEndDateReports(newValue)}
-                            />
-                        </DemoContainer>
-                    </LocalizationProvider>
-                </Container>
-
-                {/*Reports*/}
-                <Container style={{alignItems:'center', justifyContent:'center'}}>
-                    <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }} style={{padding: '1rem',}}>
-                        <Grid item xs={2} sm={6} key={1} style={{color: 'white'}} sx={{ border: 1}}>
-                            <h1>Excess Report</h1>
-                            <Excess beginDate={beginDateReports!}/>
-                        </Grid>
-                        <Grid item xs={2} sm={6} key={1} style={{color: 'white'}} sx={{ border: 1}}>
-                            <h1>Restock Report</h1>
-                            <Restock/>
-                        </Grid>
-                    </Grid>
-                </Container>
-
-                {/*Chart*/}
-                <Container style={{display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        height: '10vh',
-                        marginBottom: '1rem',
-                        marginTop: '1rem'}}>
-
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DemoContainer components={['DateField', 'DateField']}>
-                            <DateField
-                            label="Beign Date"
-                            value={beginDateChart}
-                            onChange={(newValue) => setBeginDateChart(newValue)}
-                            />
-                            <DateField
-                            label="End Date"
-                            value={endDateChart}
-                            onChange={(newValue) => setEndDateChart(newValue)}
-                            />
-                        </DemoContainer>
-                    </LocalizationProvider>
+                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                <DemoContainer components={['DateField', 'DateField']}>
+                                    <DateField
+                                    label="Beign Date"
+                                    value={beginDateChart}
+                                    onChange={(newValue) => setBeginDateChart(newValue)}
+                                    />
+                                    <DateField
+                                    label="End Date"
+                                    value={endDateChart}
+                                    onChange={(newValue) => setEndDateChart(newValue)}
+                                    />
+                            </DemoContainer>
+                        </LocalizationProvider>
                 </Container>
 
                 <Container style={{alignItems:'center', justifyContent:'center'}}>
                     <SalesChart beginDate={beginDateChart} endDate={endDateChart}/>
                 </Container>
+                </Paper>
             </Container>
         </main>
     )

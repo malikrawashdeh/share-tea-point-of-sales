@@ -71,7 +71,7 @@ const SalesChart: React.FC<props> = ({ beginDate, endDate }) => {
         display="flex"
         justifyContent="center"
         alignItems="center"
-        minHeight="100vh" // You can adjust this to fit your design needs
+        minHeight="auto" // You can adjust this to fit your design needs
         sx={{ width: '100vw', maxWidth: '100%' }}
         >
         <Chart
