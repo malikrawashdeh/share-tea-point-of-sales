@@ -15,7 +15,7 @@ interface CartDisplayProps {
 const CartDisplay: React.FC<CartDisplayProps> = ({ isOpen, toggleCart, cartItems, removeItem, finishOrder }) => {
     return (
         <>
-        <IconButton style={{}} onClick={toggleCart}>
+        <IconButton style={{}} onClick={toggleCart} id="al" aria-label="Cart-View-Button">
             <Avatar>
                 <ShoppingBasketIcon fontSize="large" htmlColor="black"/>
             </Avatar>

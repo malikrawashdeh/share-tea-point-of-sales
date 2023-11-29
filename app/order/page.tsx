@@ -58,8 +58,10 @@ export default function Page() {
   };
 
     const finishOrder = () => {
+      if (order.length > 0) {
         submitOrderCustomer(Number(session?.user.id), session?.user.name!, order);
         clearOrder();
+      }
     }
 
   const back = () => {
