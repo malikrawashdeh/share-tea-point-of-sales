@@ -14,6 +14,7 @@ export const getDrinks = async () => {
     return drinks;
 }
 
+
 export const getAllDrinkCategories = async () => {
     const categories = await prisma.drinks.findMany({
         select: {
