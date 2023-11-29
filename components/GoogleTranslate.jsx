@@ -5,7 +5,7 @@ const GoogleTranslate = () => {
         let script = document.createElement('script');
         script.setAttribute(
           'src',
-          '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit'
+          'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit'
         );
         document.body.appendChild(script);
         window.googleTranslateElementInit = googleTranslateElementInit;
@@ -15,7 +15,6 @@ const GoogleTranslate = () => {
         new window.google.translate.TranslateElement(
           {
             pageLanguage: 'en',
-            includedLanguages: 'en,ms,ta,zh-CN', // include this for selected languages
             layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
           },
           'google_translate_element'
@@ -23,9 +22,7 @@ const GoogleTranslate = () => {
       };
     
       return (
-        <>
           <div id="google_translate_element"></div>
-        </>
       );
 }
 

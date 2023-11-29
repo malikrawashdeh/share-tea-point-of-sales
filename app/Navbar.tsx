@@ -139,7 +139,7 @@ function ResponsiveAppBar() {
             {pages.map((page) => (
               <Box
                 key={page}
-                sx={{ my: 2, mx: 2, color: "white", display: "block" }}
+                sx={{ my: 'auto', mx: 2, color: "white", display: "block" }}
               >
                 <Link
                   href={page === "Home" ? "/" : "/" + page.toLocaleLowerCase()}
@@ -151,7 +151,7 @@ function ResponsiveAppBar() {
             {session?.user.role == "admin" ||
             session?.user.role === "manager" ||
             session?.user.role == "employee" ? (
-              <Box sx={{ my: 2, mx: 2, color: "white", display: "block" }}>
+              <Box sx={{ my: 'auto', mx: 2, color: "white", display: "block" }}>
                 <Link href={"/" + "Employees".toLocaleLowerCase()}>
                   Employees
                 </Link>
@@ -160,7 +160,9 @@ function ResponsiveAppBar() {
               <Box sx={{display: "flex" }}>
                 <WeatherWidgetCS/>
               </Box>
-              <GoogleTranslate/>
+              <Box sx={{display: "flex", mx: '5px' }}>
+                <GoogleTranslate/>
+              </Box>
           </Box>
           {session != null ? (
             <UserNavHeader />
