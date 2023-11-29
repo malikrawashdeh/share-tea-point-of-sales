@@ -101,8 +101,8 @@ function ResponsiveAppBar() {
                 </MenuItem>
               ))}
               <MenuItem>
-                <Box>
-                  <WeatherWidgetCS />
+                <Box sx={{ my: 'auto', mx: 2, color: "white", display: "block" }}>
+                  <WeatherWidget/>
                 </Box>
               </MenuItem>
               {session?.user.role == "admin" ||
@@ -121,7 +121,7 @@ function ResponsiveAppBar() {
             variant="h5"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
+            href="/"
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },
@@ -157,8 +157,8 @@ function ResponsiveAppBar() {
                 </Link>
               </Box>
             ) : null}
-              <Box sx={{display: "flex" }}>
-                <WeatherWidgetCS/>
+              <Box sx={{ my: 'auto', mx: 2, color: "white", display: "block" }}>
+                <WeatherWidget/>
               </Box>
               <Box sx={{display: "flex", mx: '5px' }}>
                 <GoogleTranslate/>
