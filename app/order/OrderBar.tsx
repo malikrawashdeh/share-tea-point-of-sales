@@ -55,7 +55,7 @@ const Cart: React.FC<CartProps> = ({order, removeItem, finishOrder}) => {
 
 
     return (
-        <Box sx={{ display: 'flex', alignItems: 'center', marginRight:'1rem', width:'100vw', justifyItems: 'flex-end'}}>
+        <Box sx={{ display: 'flex', alignItems: 'center', ml:'auto', justifyItems: 'flex-end'}}>
             <>{order.length}</>
             <CartDisplay finishOrder={finishOrder} isOpen={cartOpen} toggleCart={toggleCart} cartItems={order} removeItem={removeItem}/>
         </Box>
@@ -95,7 +95,7 @@ const OrderBar: React.FC<OrderBarProps> = ({order, clearOrder, finishOrder, back
                 <Grid item xs={4} sm={4} md={4} sx={{display:"flex", justifyContent:"center", alignItems:"center"}}>
                     <PriceDisplay total_price={total_price}/>
                 </Grid>
-                <Grid item xs={4} sm={4} md={4} container justifyItems="right">
+                <Grid item xs={4} sm={4} md={4} sx={{display:"flex", justifyItems:'flex-end'}}>
                     <Cart finishOrder={finishOrder} order={order} clearOrder={clearOrder} removeItem={removeItem}/>
                 </Grid>
             </Grid>
