@@ -30,7 +30,7 @@ const HomePage = () => {
             <p style={{ marginBottom: '20px', maxWidth: '500px', fontSize: '18px' }}>
               ShareTea has been your go-to destination for the best boba tea experience. 
               Our cozy, vibrant spot offers a diverse menu of freshly brewed teas and creative flavors, paired with perfectly chewy tapioca pearls. 
-              Whether you're a boba enthusiast or a newcomer, indulge in our delightful concoctions and sip your way to bliss!
+              Whether you&aposre a boba enthusiast or a newcomer, indulge in our delightful concoctions and sip your way to bliss!
             </p>
           </div>
           <img src="https://static.vecteezy.com/system/resources/thumbnails/024/933/352/small/refreshing-milkshake-with-chocolate-and-fruit-on-wooden-table-background-generated-by-ai-free-photo.jpg" 
