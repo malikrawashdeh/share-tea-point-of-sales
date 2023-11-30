@@ -13,6 +13,7 @@ import dayjs, { Dayjs } from "dayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import Link from "next/link";
 import Subheader from "@/components/Subheader";
+import BarEchart from "@/components/charts/BarEchart";
 
 export default function Manager() {
     const [beginDateReports, setBeginDateReports] = useState<Dayjs | null>(dayjs('2023-09-01'));
@@ -121,7 +122,7 @@ export default function Manager() {
                 </Container>
 
                 <Container style={{alignItems:'center', justifyContent:'center'}}>
-                    <SalesChart beginDate={beginDateChart} endDate={endDateChart}/>
+                    <BarEchart beginDate={beginDateChart} endDate={endDateChart}/>
                 </Container>
                 </Paper>
             </Container>
