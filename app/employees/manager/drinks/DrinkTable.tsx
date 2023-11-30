@@ -5,7 +5,7 @@ import { drinks } from "@prisma/client";
 import React from "react";
 
 interface DrinkProps {
-    drinks: { id: number; drink_name: string | null; unit_price: number | null; category_name: string | null; desc: string | null;}[],
+    drinks: drinks[],
     changeDrink(newDrink: drinks): void
 }
 

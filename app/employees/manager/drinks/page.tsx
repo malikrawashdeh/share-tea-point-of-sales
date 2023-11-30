@@ -19,7 +19,8 @@ const DrinksPage = () => {
         drink_name: 'N/A',
         category_name: 'N/A',
         unit_price: -1.0,
-        desc: 'N/A'
+        desc: 'N/A',
+        image_link: 'https://static.vecteezy.com/system/resources/thumbnails/024/933/352/small/refreshing-milkshake-with-chocolate-and-fruit-on-wooden-table-background-generated-by-ai-free-photo.jpg'
     };
 
     const changeDrink = (newDrink: drinks) => {
