@@ -13,9 +13,9 @@ import Button from '@mui/material/Button';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const Menu = () => {
-  const [drinks, setDrinks] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [selectedDrink, setSelectedDrink] = useState(null);
+  const [drinks, setDrinks] = useState(new Array<drinks>());
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedDrink, setSelectedDrink] = useState<drinks | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,12 +25,12 @@ const Menu = () => {
     fetchData();
   }, []); 
 
-  const handleCategoryClick = (category) => {
+  const handleCategoryClick = (category: string) => {
     setSelectedCategory(category);
     setSelectedDrink(null); // Reset selected drink when changing categories
   };
 
-  const handleDrinkClick = (drink) => {
+  const handleDrinkClick = (drink: drinks) => {
     setSelectedDrink(drink);
   };
 
@@ -56,11 +56,11 @@ const Menu = () => {
         <Grid container spacing={2}>
           {Array.from(new Set(drinks.map((drink) => drink.category_name))).map((category, index) => (
             <Grid item xs={12} sm={6} md={4} key={index}>
-              <Card onClick={() => handleCategoryClick(category)}>
+              <Card onClick={() => handleCategoryClick(category!)}>
                 <CardActionArea>
                   <CardMedia
                     component="img"
-                    alt={category}
+                    alt={category!}
                     height="200"
                     image= "https://static.vecteezy.com/system/resources/thumbnails/024/933/352/small/refreshing-milkshake-with-chocolate-and-fruit-on-wooden-table-background-generated-by-ai-free-photo.jpg"
                   />
@@ -87,9 +87,9 @@ const Menu = () => {
                   <CardActionArea>
                     <CardMedia
                       component="img"
-                      alt={drink.drink_name}
+                      alt={drink.drink_name!}
                       height="15"
-                      image= {drink.image_link}
+                      image= {drink.image_link!}
                     />
                     <CardContent>
                       <Typography variant="h6" component="div" color="black">
@@ -128,8 +128,8 @@ const Menu = () => {
         >
           {/* Display the image of the drink */}
           <img
-            src={selectedDrink?.image_link}
-            alt={selectedDrink?.drink_name}
+            src={selectedDrink?.image_link!}
+            alt={selectedDrink?.drink_name!}
             style={{ width: '100%', height: '55%', objectFit: 'contain', marginBottom: 8 }}
           />
 
