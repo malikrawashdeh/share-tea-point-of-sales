@@ -14,6 +14,7 @@ model drinks {
   unit_price    Float?
   category_name String?       @db.VarChar
   desc          String?       @db.VarChar
+  image_link    String?       @default("https://static.vecteezy.com/system/resources/thumbnails/024/933/352/small/refreshing-milkshake-with-chocolate-and-fruit-on-wooden-table-background-generated-by-ai-free-photo.jpg")
   order_items   order_items[]
 }
 
