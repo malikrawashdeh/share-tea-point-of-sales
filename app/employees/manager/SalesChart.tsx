@@ -4,6 +4,8 @@ import { Box, CircularProgress } from "@mui/material";
 import React, { useEffect } from "react";
 import { Chart } from "react-google-charts";
 import { useState } from "react";
+import { getSalesData } from "@/lib/orderQueries";
+import dayjs, { Dayjs } from "dayjs";
 
 type salesResponseItem = {
     drink_id: Number;
@@ -11,21 +13,33 @@ type salesResponseItem = {
     sales: Number;
 };
 
-export default function SalesChart() {
+interface props {
+    beginDate: Dayjs | null;
+    endDate: Dayjs | null;
+};
+
+const SalesChart: React.FC<props> = ({ beginDate, endDate }) => {
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState(new Array<salesResponseItem>());
+    const [chartBeginDate, setChartBeginDate] = useState(dayjs(new Date()));
+    const [chartEndDate, setChartEndDate] = useState(dayjs(new Date()));
 
-    const getData = React.useCallback(async () => {
-        setLoading(true);
-        const response = await fetch('/api/salesDataRange', {});
-        const result = await response.json();
-        setData(result.result);
-        setLoading(false);
+    const getData = React.useCallback(async (beginDate: Date, endDate: Date) => {
+        const result = await getSalesData(beginDate, endDate);
+        setData(result);
     }, []);
 
     useEffect(() => {
-        getData();
-    }, [getData]);
+        setLoading(true);
+        if (beginDate !== null && endDate !== null) {
+            if (beginDate !== chartBeginDate || endDate !== chartEndDate) {
+                setChartBeginDate(beginDate);
+                setChartEndDate(endDate);
+            }
+            getData(beginDate.toDate(), endDate.toDate());            
+        }
+        setLoading(false);
+    }, [getData, beginDate, endDate]);
 
     const chartFmtData = [
         [
@@ -53,25 +67,31 @@ export default function SalesChart() {
     };
 
     return !loading ? (
-        <>
-        {console.log(data)}
-        {console.log(chartFmtData)}
+        <Box 
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        minHeight="auto" // You can adjust this to fit your design needs
+        sx={{ width: '100vw', maxWidth: '100%' }}
+        >
         <Chart
         chartType="BarChart"
-        width="100%"
+        width="auto"
         height="400px"
         data={chartFmtData}
         options={options}
         />
-        </>
-    ) : (
-        <Box 
-            sx={{ display: 'flex' }}
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            minHeight="100vh">
-            <CircularProgress sx={{color: 'red'}}/>
         </Box>
-    );
+        ) : (
+        <Box 
+        sx={{ display: 'flex' }}
+        justifyContent="center"
+        alignItems="center"
+        minHeight="100vh"
+        >
+        <CircularProgress sx={{ color: 'red' }}/>
+        </Box>
+        );
 }
+
+export default SalesChart;

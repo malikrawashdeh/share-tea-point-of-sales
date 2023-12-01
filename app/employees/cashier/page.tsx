@@ -8,6 +8,8 @@ import { useEffect, useState } from "react";
 import React from "react";
 import OrderBar from "./OrderBar";
 import DrinksDisplay from "./DrinksDisplay";
+import { useSession } from "next-auth/react";
+
 
 export default function Page() { 
     const [loading, setLoading] = useState(true);
@@ -16,6 +18,8 @@ export default function Page() {
     const [prevtable, setPrevTable] = useState('categories');
     const [drink, setDrink] = useState<drinks>();
     const [order, setOrder] = useState<Array<drinks>>(new Array<drinks>());
+    const { data: session, status } = useSession();
+
 
     const getMenu = React.useCallback(async () => {
         setLoading(true);
@@ -24,8 +28,8 @@ export default function Page() {
         setLoading(false);
     }, []);
     
-    const submitOrderCustomer = React.useCallback(async (order: drinks[]) => {
-        await submitOrder(order);
+    const submitOrderCustomer = React.useCallback(async (id: number, name: string, orderItems: drinks[]) => {
+        await submitOrder(id, name, orderItems);
     }, []);
 
     const changeDrinkState = (drink: drinks) => {
@@ -50,7 +54,7 @@ export default function Page() {
     }
 
     const finishOrder = () => {
-        submitOrderCustomer(order);
+        submitOrderCustomer(Number(session?.user.id), session?.user.name!, order);
         clearOrder();
     }
 

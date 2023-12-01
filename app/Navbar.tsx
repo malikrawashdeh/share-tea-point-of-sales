@@ -9,46 +9,43 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
+import { LocalDrink } from '@mui/icons-material';
 import AdbIcon from "@mui/icons-material/Adb";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 
-import WeatherWidget from "./components/WeatherWidget";
+import WeatherWidget from "../components/WeatherWidget";
+import UserNavHeader from "../components/UserNavHeader";
+import WeatherWidgetCS from "@/components/WeatherWidgetCS";
+import GoogleTranslate from "@/components/GoogleTranslate";
+import { SvgIcon } from "@mui/material";
 
-const pages = ["Home", "Menu", "Order", "Employees"];
-const settings = ["Account", "Logout"];
+const pages = ["Home", "Menu", "Order"];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
-    null
-  );
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   );
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget);
-  };
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
+  const { data: session } = useSession();
 
   return (
-    <AppBar position="static" style={{ background: '#ce0e2d', marginBottom: '1rem' }}>
+    <AppBar
+      position="static"
+      style={{ background: "#ce0e2d", marginBottom: "1rem" }}
+    >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+          <LocalDrink sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}/>
           <Typography
             variant="h6"
             noWrap
@@ -65,7 +62,6 @@ function ResponsiveAppBar() {
           >
             Sharetea
           </Typography>
-
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
@@ -106,14 +102,28 @@ function ResponsiveAppBar() {
                   </Link>
                 </MenuItem>
               ))}
+              <MenuItem>
+                <Box sx={{ my: 'auto', mx: 2, color: "white", display: "block" }}>
+                  <WeatherWidget/>
+                </Box>
+              </MenuItem>
+              {session?.user.role == "admin" ||
+              session?.user.role === "manager" ||
+              session?.user.role == "employee" ? (
+                <MenuItem key={"Employees"} onClick={handleCloseNavMenu}>
+                  <Link href={"/" + "Employees".toLocaleLowerCase()}>
+                    <Typography textAlign="center">Employees</Typography>
+                  </Link>
+                </MenuItem>
+              ) : null}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+          <LocalDrink sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
+            href="/"
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },
@@ -131,7 +141,7 @@ function ResponsiveAppBar() {
             {pages.map((page) => (
               <Box
                 key={page}
-                sx={{ my: 2, mx: 2, color: "white", display: "block" }}
+                sx={{ my: 'auto', mx: 2, color: "white", display: "block" }}
               >
                 <Link
                   href={page === "Home" ? "/" : "/" + page.toLocaleLowerCase()}
@@ -140,38 +150,27 @@ function ResponsiveAppBar() {
                 </Link>
               </Box>
             ))}
-            <WeatherWidget />
+            {session?.user.role == "admin" ||
+            session?.user.role === "manager" ||
+            session?.user.role == "employee" ? (
+              <Box sx={{ my: 'auto', mx: 2, color: "white", display: "block" }}>
+                <Link href={"/" + "Employees".toLocaleLowerCase()}>
+                  Employees
+                </Link>
+              </Box>
+            ) : null}
+              <Box sx={{ my: 'auto', mx: 2, color: "white", display: "block" }}>
+                <WeatherWidget/>
+              </Box>
+              <Box sx={{display: "flex", mx: '5px' }}>
+                <GoogleTranslate/>
+              </Box>
           </Box>
-
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Your Avatar" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
+          {session != null ? (
+            <UserNavHeader />
+          ) : (
+            <Link href="/signin">Login / SignUp</Link>
+          )}
         </Toolbar>
       </Container>
     </AppBar>

@@ -23,21 +23,21 @@ export default function Restock() {
 
     return !loading ? (
         <TableContainer>
-            <Table sx={{  }} aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell align="right">Ingredient</TableCell>
-                            <TableCell align="right">Current Quantity</TableCell>
-                            <TableCell align="right">Minimum Quantity</TableCell>
+            <Table sx={{}} aria-label="simple table">
+                    <TableHead sx={{}}>
+                        <TableRow sx={{}}>
+                            <TableCell sx={{}} align="right">Ingredient</TableCell>
+                            <TableCell sx={{}} align="right">Current Quantity</TableCell>
+                            <TableCell sx={{}} align="right">Minimum Quantity</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {data.map((row) => (
                             <TableRow
-                            key={row.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                            <TableCell align="right">{row.name}</TableCell>
-                            <TableCell align="right">{row.quantity}</TableCell>
-                            <TableCell align="right">{row.min_quantity}</TableCell>
+                            key={row.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } , }}>
+                            <TableCell sx={{}} align="right">{row.name}</TableCell>
+                            <TableCell sx={{}} align="right">{row.quantity}</TableCell>
+                            <TableCell sx={{}} align="right">{row.min_quantity}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

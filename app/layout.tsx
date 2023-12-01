@@ -1,26 +1,37 @@
-import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-import './globals.css'
-import ResponsiveAppBar from './Navbar'
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "./globals.css";
+import ResponsiveAppBar from "./Navbar";
+import { SessionProvider } from "next-auth/react";
+import { getServerSession } from "next-auth";
+import options from "./api/auth/[...nextauth]/options";
+import AuthProvider from "./context/AuthProvider";
+import { Providers } from "@/lib/providers";
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'Sharetea',
-  description: 'Sharetea App',
-}
+  title: "Sharetea",
+  description: "Sharetea App",
+};
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <ResponsiveAppBar/>
-        {children}
+    <Providers>
+      <html lang="en">
+        <body className={inter.className}>
+          <AuthProvider>
+            <main className="flex flex-col items-center justify-center w-full flex-1  text-center">
+              <ResponsiveAppBar />
+              {children}
+            </main>
+          </AuthProvider>
         </body>
-    </html>
-  )
+      </html>
+    </Providers>
+  );
 }
