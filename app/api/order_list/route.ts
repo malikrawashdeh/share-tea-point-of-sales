@@ -15,6 +15,34 @@ type Order = {
   drinks: drinks[];
 };
 
+/**
+ * @swagger
+ * /api/order_list:
+ *   get:
+ *     description: Get all orders of a user
+ *     parameters:
+ *       - name: user_id
+ *         in: query
+ *         description: User id
+ *         required: true
+ *         schema:
+ *           type: number
+ *       - name: page
+ *         in: query
+ *         description: Page number
+ *         required: false
+ *         schema:
+ *           type: number
+ *     responses:
+ *       200:
+ *         description: Success
+ *       400:
+ *         description: Bad request
+ *       404:
+ *         description: No orders found
+ *       500:
+ *         description: Internal server error
+ */
 export async function GET(req: NextRequest) {
   const pageSize = 20;
   try {
