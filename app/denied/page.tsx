@@ -1,6 +1,10 @@
 import { Typography, Link as MuiLink } from "@mui/material";
 import NextLink from "next/link";
 
+// tsdoc
+/*
+ * @returns {JSX.Element}
+ */
 export default function Denied() {
   return (
     <section

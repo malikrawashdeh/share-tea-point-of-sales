@@ -6,8 +6,8 @@ export default async function IndexPage() {
   const spec = await getApiDocs();
   return (
     <section className="container">
-      {/* do card with white background */}
       <Card>
+        <h1>API Documentation</h1>
         <ReactSwagger spec={spec} />
       </Card>
     </section>
