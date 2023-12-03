@@ -9,7 +9,13 @@ interface IngredientProps {
     changeIngredient(newIngredient: ingredients): void
 }
 
-
+/**
+ * Table component to display all ingredients within the database
+ * 
+ * @param ingredients All ingredients to be displayed in the table
+ * @param changeDrink Callback function to change the user selected ingredient 
+ * @returns Ingredient Table Element
+ */
 const IngredientsTable: React.FC<IngredientProps> = ({ingredients, changeIngredient}) => {
     return ingredients.length > 0 ? (
             <TableContainer component={Paper} sx={{padding: '1rem'}}>

@@ -1,8 +1,7 @@
-import { Avatar, Box, Button, Card, Container, Drawer, Grid, IconButton, List, ListItem, ListItemButton, ListItemText, Paper, Stack, Typography } from "@mui/material";
+import { Avatar, Box, Button, Drawer, Grid, IconButton, List, ListItem, ListItemButton, ListItemText, Paper, Typography } from "@mui/material";
 import { drinks } from "@prisma/client";
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 import React, { useState } from "react";
-import { finished } from "stream";
 
 interface CartDisplayProps {
     isOpen: boolean,
@@ -74,6 +73,9 @@ const PriceDisplay: React.FC<PriceDisplayProps> = ({total_price}) => {
     )
 }
 
+/**
+ * OrderBarProps
+ */
 interface OrderBarProps {
     order: drinks[],
     clearOrder(): void,
@@ -82,7 +84,18 @@ interface OrderBarProps {
     removeItem(index: number): void,
 }
 
+/**
+ * Informational and Action bar for Order page
+ * 
+ * @param order The user's current order
+ * @param clearOrder Callback to clear the order on button press
+ * @param finishOrder Callback to submitt order on button press
+ * @param back Callback to change page state on button press
+ * @param removeItem Callback to remove a specific drink item on press
+ * @returns {Element} Order Bar Component
+ */
 const OrderBar: React.FC<OrderBarProps> = ({order, clearOrder, finishOrder, back, removeItem}) => {
+    // Total Price of current order
     const total_price = order.length !== 0 && order !== null ? order.map((item) => item.unit_price).reduce((acc, curr) => acc! + curr!)! : 0.00;
 
     return (

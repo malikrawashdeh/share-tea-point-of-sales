@@ -14,6 +14,13 @@ interface FormDialogProps {
     handleModalClose(): void,
 };
 
+/**
+ * Pop-up for modifying/creating a new ingredient
+ * 
+ * @param ingredient The user selected ingredient
+ * @param handleModalClose Callback to clean up the modal sence upon user close 
+ * @returns Modal Element
+ */
 const FormDialog: React.FC<FormDialogProps> = ({ingredient, handleModalClose}) => {
     const [newIngredient, setNewIngredient] = useState<ingredients>();
   

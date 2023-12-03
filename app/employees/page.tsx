@@ -1,6 +1,10 @@
 import Subheader from "@/components/Subheader";
 import { Card, CardActionArea, CardContent, CardMedia, Container, Paper, Typography } from "@mui/material";
 
+/**
+ * Component for the employees dashboard
+ * @returns Employees dashboard component
+ */
 export default function Employees() {
   return (
     // create me centered container with h1 and p

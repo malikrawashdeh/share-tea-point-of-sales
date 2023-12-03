@@ -9,6 +9,13 @@ interface props {
     changeUser(newUser: users): void
 }
 
+/**
+ * Table component to display all users within the database
+ * 
+ * @param users All users to be displayed in the table
+ * @param changeDrink Callback function to change the user selected user 
+ * @returns user Table Element
+ */
 const UsersTable: React.FC<props> = ({users, changeUser}) => {
     return users.length > 0 ? (
             <TableContainer component={Paper} sx={{padding: '1rem'}}>

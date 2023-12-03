@@ -4,11 +4,15 @@ import IngredientTable from "./IngredientsTable";
 import {useEffect, useState } from "react";
 import { ingredients } from "@prisma/client";
 import React from "react";
-import Popup from "./Popup";
 import { Box, Button, CircularProgress, Container } from "@mui/material";
 import FormDialog from "./FormDialog";
 import Link from "next/link";
 
+/**
+ * Main Component Page for ingredients table
+ * 
+ * @returns Drinks ingredients Page element
+ */
 const IngredientsPage = () => {
     const [selectedIngredient, setSelectedIngredient] = useState<ingredients>();
     const [ingredients, setIngredients] = useState<ingredients[]>();

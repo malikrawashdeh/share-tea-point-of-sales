@@ -14,6 +14,13 @@ interface FormDialogProps {
     handleModalClose(): void,
 };
 
+/**
+ * Pop-up for modifying/creating a new user
+ * 
+ * @param user The user selected user
+ * @param handleModalClose Callback to clean up the modal sence upon user close 
+ * @returns Modal Element
+ */
 const FormDialog: React.FC<FormDialogProps> = ({user, handleModalClose}) => {
   const [newUser, setNewUser] = useState<users>();
 

@@ -10,6 +10,11 @@ interface props {
     beginDate: Dayjs;
 };
 
+/**
+ * Excess report chart
+ * @param beginDate The beginning day of range (beginDate, Today) for items excess analysis 
+ * @returns Excess report element
+ */
 const Excess: React.FC<props> = ({ beginDate }) => {
     const [data, setData] = useState(new Array<ingredients>());
     const [loading, setLoading] = useState(true);

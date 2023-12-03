@@ -4,6 +4,10 @@ import { Box, CircularProgress, Table, TableBody, TableCell, TableContainer, Tab
 import { ingredients } from "@prisma/client";
 import React, { useEffect, useState } from "react";
 
+/**
+ * Restock report component for ingredient below min stock level
+ * @returns Restock table element
+ */
 export default function Restock() {
     const [data, setData] = useState(new Array<ingredients>());
     const [loading, setLoading] = useState(true);

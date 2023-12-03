@@ -9,6 +9,13 @@ interface DrinkProps {
     changeDrink(newDrink: drinks): void
 }
 
+/**
+ * Table component to display all drinks within the database
+ * 
+ * @param drinks All drinks to be displayed in the table
+ * @param changeDrink Callback function to change the user selected drink 
+ * @returns Drink Table Element
+ */
 const DrinkTable: React.FC<DrinkProps> = ({drinks, changeDrink}) => {
     return drinks.length > 0 ? (
             <TableContainer component={Paper} sx={{padding: '1rem'}}>

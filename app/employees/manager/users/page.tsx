@@ -8,6 +8,11 @@ import { Box, Button, CircularProgress, Container } from "@mui/material";
 import FormDialog from "./FormDialog";
 import Link from "next/link";
 
+/**
+ * Main Component Page for users table
+ * 
+ * @returns Drinks users Page element
+ */
 const Page = () => {
     const [selectedUser, setSelectedUser] = useState<users>();
     const [users, setUsers] = useState<users[]>();

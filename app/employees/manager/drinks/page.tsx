@@ -4,11 +4,15 @@ import DrinkTable from "./DrinkTable";
 import {useEffect, useState } from "react";
 import { drinks } from "@prisma/client";
 import React from "react";
-import Popup from "./Popup";
 import { Box, Button, CircularProgress, Container } from "@mui/material";
 import FormDialog from "./FormDialog";
 import Link from "next/link";
 
+/**
+ * Main Component Page for drinks table
+ * 
+ * @returns Drinks Table Page element
+ */
 const DrinksPage = () => {
     const [selectedDrink, setSelectedDrink] = useState<drinks>();
     const [drinks, setDrinks] = useState<drinks[]>();

@@ -18,6 +18,13 @@ interface props {
     endDate: Dayjs | null;
 };
 
+/**
+ * Sales Chart Component to contain the chart visualization of cummliative sales for indivilual drinks
+ * 
+ * @param beginDate First day of sales range
+ * @param endDate  Last day of sales range
+ * @returns 
+ */
 const SalesChart: React.FC<props> = ({ beginDate, endDate }) => {
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState(new Array<salesResponseItem>());

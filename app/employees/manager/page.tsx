@@ -1,20 +1,23 @@
 'use client'
 
-import { Button, Container, Grid, Table, TableCell, TableContainer, TableHead, TableRow, colors, Paper } from "@/node_modules/@mui/material/index";
-import Typography from "@mui/material/Typography";
+import { Button, Container, Grid, Paper } from "@/node_modules/@mui/material/index";
 import { DateField } from '@mui/x-date-pickers/DateField';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo'; 
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import SalesChart from "./SalesChart";
 import Excess from "./excess";
 import Restock from "./restock";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import dayjs, { Dayjs } from "dayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import Link from "next/link";
 import Subheader from "@/components/Subheader";
 import BarEchart from "@/components/charts/BarEchart";
 
+/**
+ * Manager dashboard component for store overview
+ * @returns Manager dashboard component
+ */
 export default function Manager() {
     const [beginDateReports, setBeginDateReports] = useState<Dayjs | null>(dayjs('2023-09-01'));
     const [endDateReports, setEndDateReports] = useState<Dayjs | null>(dayjs(new Date()));
