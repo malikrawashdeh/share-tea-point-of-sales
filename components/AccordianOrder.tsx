@@ -66,7 +66,8 @@ function AccordianOrder({ order }: AccordianProps) {
       <AccordionDetails>
         {order.drinks.map((item, index) => (
           <Grid
-            key={item.id.toString()}
+            key={index}
+            id={item.id.toString()}
             container
             spacing={2}
             justifyContent="space-between"

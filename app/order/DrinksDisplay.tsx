@@ -1,8 +1,11 @@
 'use client'
 
-import { Card, CardActionArea, CardContent, CardMedia, Container, Grid, Link, Typography } from "@mui/material";
+import { Card, CardActionArea, CardContent, CardMedia, Grid, Typography } from "@mui/material";
 import { drinks } from "@prisma/client";
 
+/**
+ * DrinkCardGridProps
+ */
 interface DrinkCardGridProps {
     drinkCategoryMap: Map<string, drinks[]>,
     category: string,
@@ -10,6 +13,15 @@ interface DrinkCardGridProps {
     addDrinkToOrder(drink: drinks): void
 }
 
+/**
+ * Component for category specific drink selection
+ * 
+ * @param {Map<String, drinks>} drinksCategoryMap
+ * @param {String} category
+ * @param {drinks} setDrink
+ * @param {drinks} addDrinkToOrder
+ * @returns {Element} DrinksDisplay
+ */
 const DrinksDisplay: React.FC<DrinkCardGridProps> = ({drinkCategoryMap, category, setDrink, addDrinkToOrder}) => {
     const drinks = drinkCategoryMap.get(category) ?? new Array<drinks>();
 

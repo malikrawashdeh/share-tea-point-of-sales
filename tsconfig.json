@@ -28,7 +28,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "swaggerOptions.js"
+    "swaggerOptions.js",
+    "components/GoogleTranslate.jsx"
   ],
   "exclude": ["node_modules"]
 }
