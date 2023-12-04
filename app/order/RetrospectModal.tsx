@@ -34,6 +34,7 @@ const RetrospectModel: React.FC<props> = ({modalOpen, setModalOpen, order}) => {
           }}
         >
         <Subheader text={"Thank you!"}/>
+        <Subheader text={"Your order for " + order.length + " drinks at a total of $" + total.toFixed(2) + " is confirmed"}/>
         </Box>
       </Modal>
     );
