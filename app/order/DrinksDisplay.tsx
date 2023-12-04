@@ -38,6 +38,7 @@ const DrinksDisplay: React.FC<DrinkCardGridProps> = ({drinkCategoryMap, category
                             alt=""
                             />
                             <CardContent>
+                                <Typography style={{opacity: '0%'}}>Add to Order</Typography>
                                 <Typography gutterBottom variant="h5" component="div">
                                     {value.drink_name}
                                 </Typography>

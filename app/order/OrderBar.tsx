@@ -27,6 +27,7 @@ const CartDisplay: React.FC<CartDisplayProps> = ({ isOpen, toggleCart, cartItems
                     {cartItems.map((item, index) => (
                         <ListItemButton key={index} onClick={() => (removeItem(index))}>
                             <ListItem key={index}>
+                                <Typography style={{opacity: '0%'}}>Removed to Order</Typography>
                                 <ListItemText primary={item.drink_name + "  ❌"} secondary={`Price: ${"$" + item.unit_price}`} />
                             </ListItem>
                         </ListItemButton>
