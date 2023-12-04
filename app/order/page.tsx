@@ -11,6 +11,7 @@ import DrinksDisplay from "./DrinksDisplay";
 import { useSelector, useDispatch, selectCart, cartSlice } from "@/lib/redux";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
+import RetrospectModel from "./RetrospectModal";
 
 
 /**
@@ -33,6 +34,8 @@ export default function Page() {
   const dispatch = useDispatch();
   // Grab user session info
   const { data: session, status } = useSession();
+
+  const [modalOpen, setModalOpen] = useState(false);
 
   /**
    * Retierves the store's drink menu using the proper server action
@@ -71,6 +74,7 @@ export default function Page() {
 
     const finishOrder = () => {
       if (order.length > 0) {
+        setModalOpen(true);
         submitOrderCustomer(Number(session?.user.id), session?.user.name!, order);
         clearOrder();
       }
@@ -105,6 +109,7 @@ export default function Page() {
   } else if (table === "categories") {
     return (
       <main>
+        <RetrospectModel modalOpen={modalOpen} setModalOpen={setModalOpen} order={order}/>
         <Container style={{ alignItems: "center", justifyContent: "center" }}>
           <OrderBar
             order={order}
@@ -135,6 +140,7 @@ export default function Page() {
   } else {
     return (
       <main>
+        <RetrospectModel modalOpen={modalOpen} setModalOpen={setModalOpen} order={order}/>
         <Container style={{ alignItems: "center", justifyContent: "center" }}>
           <OrderBar
             order={order}

@@ -1,16 +1,21 @@
+import Subheader from "@/components/Subheader";
 import { Modal, Box, Typography } from "@mui/material";
+import { drinks } from "@prisma/client";
 import React from "react";
 
 interface props {
-    orderFinished: boolean;
-    newOrderHandler(): void;
+    modalOpen: boolean;
+    setModalOpen(arg0: boolean): void;
+    order: drinks[],
 };
 
-const RetrospectModel: React.FC<props> = (orderFinished, newOrderHandler) => {
+const RetrospectModel: React.FC<props> = ({modalOpen, setModalOpen, order}) => {
+    const total = order.length !== 0 && order !== null ? order.map((item) => item.unit_price).reduce((acc, curr) => acc! + curr!)! : 0.00;
+
     return (
         <Modal
-        open={!orderFinished}
-        onClose={newOrderHandler}
+        open={!!modalOpen}
+        onClose={() => (setModalOpen(false))}
         aria-labelledby="drink-description-modal"
         aria-describedby="drink-description"
       >
@@ -28,7 +33,7 @@ const RetrospectModel: React.FC<props> = (orderFinished, newOrderHandler) => {
             p: 2,
           }}
         >
-        
+        <Subheader text={"Thank you!"}/>
         </Box>
       </Modal>
     );
