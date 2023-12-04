@@ -12,6 +12,7 @@ import { useSelector, useDispatch, selectCart, cartSlice } from "@/lib/redux";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import RetrospectModel from "./RetrospectModal";
+import { redirect } from "next/navigation";
 
 
 /**
@@ -76,7 +77,6 @@ export default function Page() {
       if (order.length > 0) {
         setModalOpen(true);
         submitOrderCustomer(Number(session?.user.id), session?.user.name!, order);
-        clearOrder();
       }
     }
 
@@ -91,6 +91,10 @@ export default function Page() {
       getMenu();
     }
   }, []);
+
+  if (session === null) {
+    redirect('/signin');
+  }
 
   if (loading) {
     return (
@@ -109,7 +113,7 @@ export default function Page() {
   } else if (table === "categories") {
     return (
       <main>
-        <RetrospectModel modalOpen={modalOpen} setModalOpen={setModalOpen} order={order}/>
+        <RetrospectModel modalOpen={modalOpen} setModalOpen={setModalOpen} order={order} clearOrder={clearOrder}/>
         <Container style={{ alignItems: "center", justifyContent: "center" }}>
           <OrderBar
             order={order}
@@ -140,7 +144,7 @@ export default function Page() {
   } else {
     return (
       <main>
-        <RetrospectModel modalOpen={modalOpen} setModalOpen={setModalOpen} order={order}/>
+        <RetrospectModel modalOpen={modalOpen} setModalOpen={setModalOpen} order={order} clearOrder={clearOrder}/>
         <Container style={{ alignItems: "center", justifyContent: "center" }}>
           <OrderBar
             order={order}
