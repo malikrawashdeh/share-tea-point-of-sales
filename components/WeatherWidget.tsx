@@ -50,7 +50,7 @@ const WeatherWidget: React.FC = () => {
         >
           {/* insert image of current weather icon */}
           <img
-            src={`http://openweathermap.org/img/w/${icon}.png`}
+            src={`https://openweathermap.org/img/w/${icon}.png`}
             alt="Weather Icon"
             style={{ marginRight: "0.5rem" }}
           />

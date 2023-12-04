@@ -1,3 +1,4 @@
+import { getIngredients } from "@/lib/IngredientQueries";
 import prisma from "@/lib/prisma";
 import { NextResponse } from "@/node_modules/next/server";
 
@@ -12,27 +13,27 @@ export async function POST(request: Request) {
     }
 
     if (data.id == -1) {
-        const insertDrink = await prisma.drinks.create({
+        const insertIngredient = await prisma.ingredients.create({
             data: {
-                drink_name: data.drink_name,
-                category_name: data.category_name,
+                name: data.name,
                 unit_price: data.unit_price,
-                desc: data.desc
+                quantity: data.quantity,
+                min_quantity: data.min_quantity
             }
         });
 
         return NextResponse.json({});
     }
 
-    const updateDrink = await prisma.drinks.update({
+    const updateIngredient = await prisma.ingredients.update({
         where: {
             id: data.id,
         },
         data: {
-            drink_name: data.drink_name,
-            category_name: data.category_name,
+            name: data.name,
             unit_price: data.unit_price,
-            desc: data.desc
+            quantity: data.quantity,
+            min_quantity: data.min_quantity
         }
     })
 

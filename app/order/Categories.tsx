@@ -8,6 +8,13 @@ interface CategoriesProps {
     setTableState(table: string): void, 
 }
 
+/**
+ * Order component to display drink categories and allow naviagation to specific drink pages
+ * 
+ * @param categories All possible store categories
+ * @param setTableState The category selected by the user
+ * @returns 
+ */
 const Categories: React.FC<CategoriesProps> = ({categories, setTableState}) => {
     return (
         <>

@@ -5,10 +5,17 @@ import { drinks } from "@prisma/client";
 import React from "react";
 
 interface DrinkProps {
-    drinks: { id: number; drink_name: string | null; unit_price: number | null; category_name: string | null; desc: string | null;}[],
+    drinks: drinks[],
     changeDrink(newDrink: drinks): void
 }
 
+/**
+ * Table component to display all drinks within the database
+ * 
+ * @param drinks All drinks to be displayed in the table
+ * @param changeDrink Callback function to change the user selected drink 
+ * @returns Drink Table Element
+ */
 const DrinkTable: React.FC<DrinkProps> = ({drinks, changeDrink}) => {
     return drinks.length > 0 ? (
             <TableContainer component={Paper} sx={{padding: '1rem'}}>

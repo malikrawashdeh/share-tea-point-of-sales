@@ -10,26 +10,42 @@ import OrderBar from "./OrderBar";
 import DrinksDisplay from "./DrinksDisplay";
 import { useSelector, useDispatch, selectCart, cartSlice } from "@/lib/redux";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
 
+
+/**
+ * Page level component for the Customer Order View
+ * @returns Main Order Page
+ */
 export default function Page() {
+  // Processing/Load tracking
   const [loading, setLoading] = useState(true);
+  // Stores the drink menu mapped to each drink's category
   const [menu, setMenu] = useState(new Map<string, drinks[]>());
+  // Page State tracking for current order step. "categories", "drinks"
   const [table, setTable] = useState("categories");
+  // Previous page State tracking for current order step. "categories", "drinks"
   const [prevtable, setPrevTable] = useState("categories");
+  // The current user selected drink
   const [drink, setDrink] = useState<drinks>();
   // use redux for order
   const order = useSelector(selectCart);
   const dispatch = useDispatch();
+  // Grab user session info
+  const { data: session, status } = useSession();
 
+  /**
+   * Retierves the store's drink menu using the proper server action
+   */
   const getMenu = React.useCallback(async () => {
-    setLoading(true);
-    const menu = await getDrinksWithinCategories();
-    setMenu(menu);
-    setLoading(false);
+      setLoading(true);
+      const menu = await getDrinksWithinCategories();
+      setMenu(menu);
+      setLoading(false);
   }, []);
-
-  const submitOrderCustomer = React.useCallback(async (order: drinks[]) => {
-    await submitOrder(order);
+  
+  const submitOrderCustomer = React.useCallback(async (id: number, name: string, orderItems: drinks[]) => {
+      await submitOrder(id, name, orderItems);
   }, []);
 
   const changeDrinkState = (drink: drinks) => {
@@ -53,10 +69,12 @@ export default function Page() {
     dispatch(cartSlice.actions.clearCart());
   };
 
-  const finishOrder = () => {
-    submitOrderCustomer(order);
-    clearOrder();
-  };
+    const finishOrder = () => {
+      if (order.length > 0) {
+        submitOrderCustomer(Number(session?.user.id), session?.user.name!, order);
+        clearOrder();
+      }
+    }
 
   const back = () => {
     const tmp = table;

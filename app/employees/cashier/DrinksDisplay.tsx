@@ -29,9 +29,11 @@ const DrinksDisplay: React.FC<DrinkCardGridProps> = ({drinkCategoryMap, category
                                 <Typography gutterBottom variant="h5" component="div">
                                     {value.drink_name}
                                 </Typography>
+                                <Typography variant="body1" color="text.primary">
+                                    {`${"$" + value.unit_price}`}
+                                </Typography>
                                 <Typography variant="body2" color="text.secondary">
-                                    Lizards are a widespread group of squamate reptiles, with over 6,000
-                                    species, ranging across all continents except Antarctica
+                                    {value.desc}
                                 </Typography>
                             </CardContent>
                     </CardActionArea>

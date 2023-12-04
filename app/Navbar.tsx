@@ -10,6 +10,7 @@ import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import MenuItem from "@mui/material/MenuItem";
+import { LocalDrink } from '@mui/icons-material';
 import AdbIcon from "@mui/icons-material/Adb";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
@@ -17,6 +18,8 @@ import { useSession } from "next-auth/react";
 import WeatherWidget from "../components/WeatherWidget";
 import UserNavHeader from "../components/UserNavHeader";
 import WeatherWidgetCS from "@/components/WeatherWidgetCS";
+import GoogleTranslate from "@/components/GoogleTranslate";
+import { SvgIcon } from "@mui/material";
 
 const pages = ["Home", "Menu", "Order"];
 
@@ -42,7 +45,7 @@ function ResponsiveAppBar() {
     >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+          <LocalDrink sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}/>
           <Typography
             variant="h6"
             noWrap
@@ -100,8 +103,8 @@ function ResponsiveAppBar() {
                 </MenuItem>
               ))}
               <MenuItem>
-                <Box>
-                  <WeatherWidgetCS />
+                <Box sx={{ my: 'auto', mx: 2, color: "white", display: "block" }}>
+                  <WeatherWidget/>
                 </Box>
               </MenuItem>
               {session?.user.role == "admin" ||
@@ -115,12 +118,12 @@ function ResponsiveAppBar() {
               ) : null}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+          <LocalDrink sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
+            href="/"
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },
@@ -138,7 +141,7 @@ function ResponsiveAppBar() {
             {pages.map((page) => (
               <Box
                 key={page}
-                sx={{ my: 2, mx: 2, color: "white", display: "block" }}
+                sx={{ my: 'auto', mx: 2, color: "white", display: "block" }}
               >
                 <Link
                   href={page === "Home" ? "/" : "/" + page.toLocaleLowerCase()}
@@ -150,14 +153,17 @@ function ResponsiveAppBar() {
             {session?.user.role == "admin" ||
             session?.user.role === "manager" ||
             session?.user.role == "employee" ? (
-              <Box sx={{ my: 2, mx: 2, color: "white", display: "block" }}>
+              <Box sx={{ my: 'auto', mx: 2, color: "white", display: "block" }}>
                 <Link href={"/" + "Employees".toLocaleLowerCase()}>
                   Employees
                 </Link>
               </Box>
             ) : null}
-              <Box sx={{display: "flex" }}>
-                <WeatherWidgetCS/>
+              <Box sx={{ my: 'auto', mx: 2, color: "white", display: "block" }}>
+                <WeatherWidget/>
+              </Box>
+              <Box sx={{display: "flex", mx: '5px' }}>
+                <GoogleTranslate/>
               </Box>
           </Box>
           {session != null ? (

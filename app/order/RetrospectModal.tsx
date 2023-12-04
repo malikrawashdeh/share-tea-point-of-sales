@@ -1,25 +1,21 @@
 import { Modal, Box, Typography } from "@mui/material";
-import { drinks } from "@prisma/client";
 import React from "react";
-import Fields from "./Fields";
-import FormDialog from "./FormDialog";
 
-interface PopupProps {
-    drink: drinks | undefined,
-    handleModalClose(): void,
+interface props {
+    orderFinished: boolean;
+    newOrderHandler(): void;
 };
 
-const Popup: React.FC<PopupProps> = ({drink, handleModalClose}) => {
+const RetrospectModel: React.FC<props> = (orderFinished, newOrderHandler) => {
     return (
         <Modal
-        open={!!drink}
-        onClose={handleModalClose}
+        open={!orderFinished}
+        onClose={newOrderHandler}
         aria-labelledby="drink-description-modal"
         aria-describedby="drink-description"
-        >
+      >
         <Box
           sx={{
-            color: 'black',
             position: 'absolute',
             top: '50%',
             left: '50%',
@@ -38,4 +34,4 @@ const Popup: React.FC<PopupProps> = ({drink, handleModalClose}) => {
     );
 }
 
-export default Popup;
+export default RetrospectModel;

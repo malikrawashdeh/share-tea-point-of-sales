@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Card, Container, Drawer, Grid, IconButton, List, ListItem, ListItemButton, ListItemText, Paper, Stack, Typography } from "@mui/material";
+import { Avatar, Box, Button, Drawer, Grid, IconButton, List, ListItem, ListItemButton, ListItemText, Paper, Typography } from "@mui/material";
 import { drinks } from "@prisma/client";
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 import React, { useState } from "react";
@@ -7,13 +7,14 @@ interface CartDisplayProps {
     isOpen: boolean,
     toggleCart(): void,
     removeItem(index: number): void,
+    finishOrder(): void,
     cartItems: drinks[],
 }
 
-const CartDisplay: React.FC<CartDisplayProps> = ({ isOpen, toggleCart, cartItems, removeItem }) => {
+const CartDisplay: React.FC<CartDisplayProps> = ({ isOpen, toggleCart, cartItems, removeItem, finishOrder }) => {
     return (
         <>
-        <IconButton style={{}} onClick={toggleCart}>
+        <IconButton style={{}} onClick={toggleCart} id="al" aria-label="Cart-View-Button">
             <Avatar>
                 <ShoppingBasketIcon fontSize="large" htmlColor="black"/>
             </Avatar>
@@ -22,6 +23,7 @@ const CartDisplay: React.FC<CartDisplayProps> = ({ isOpen, toggleCart, cartItems
         <Drawer anchor="right" open={isOpen} onClose={toggleCart}>
             <div style={{ width: '250px' }}>
                 <List>
+                    <Button onClick={finishOrder} variant="contained" style={{backgroundColor: '#ce0e2d', marginRight: '1rem', marginLeft: '1rem'}}>Finish Order</Button>
                     {cartItems.map((item, index) => (
                         <ListItemButton key={index} onClick={() => (removeItem(index))}>
                             <ListItem key={index}>
@@ -40,9 +42,10 @@ interface CartProps {
     order: drinks[],
     clearOrder(): void,
     removeItem(index: number): void,
+    finishOrder(): void,
 }
 
-const Cart: React.FC<CartProps> = ({order, removeItem}) => {
+const Cart: React.FC<CartProps> = ({order, removeItem, finishOrder}) => {
     const [cartOpen, setCartOpen] = useState(false);
 
     const toggleCart = () => {
@@ -51,9 +54,9 @@ const Cart: React.FC<CartProps> = ({order, removeItem}) => {
 
 
     return (
-        <Box sx={{ display: 'flex', alignItems: 'center', marginRight:'1rem', width:'100vw', justifyItems: 'flex-end'}}>
+        <Box sx={{ display: 'flex', alignItems: 'center', ml:'auto', justifyItems: 'flex-end'}}>
             <>{order.length}</>
-            <CartDisplay isOpen={cartOpen} toggleCart={toggleCart} cartItems={order} removeItem={removeItem}/>
+            <CartDisplay finishOrder={finishOrder} isOpen={cartOpen} toggleCart={toggleCart} cartItems={order} removeItem={removeItem}/>
         </Box>
     );  
 }
@@ -70,6 +73,9 @@ const PriceDisplay: React.FC<PriceDisplayProps> = ({total_price}) => {
     )
 }
 
+/**
+ * OrderBarProps
+ */
 interface OrderBarProps {
     order: drinks[],
     clearOrder(): void,
@@ -78,7 +84,18 @@ interface OrderBarProps {
     removeItem(index: number): void,
 }
 
+/**
+ * Informational and Action bar for Order page
+ * 
+ * @param order The user's current order
+ * @param clearOrder Callback to clear the order on button press
+ * @param finishOrder Callback to submitt order on button press
+ * @param back Callback to change page state on button press
+ * @param removeItem Callback to remove a specific drink item on press
+ * @returns {Element} Order Bar Component
+ */
 const OrderBar: React.FC<OrderBarProps> = ({order, clearOrder, finishOrder, back, removeItem}) => {
+    // Total Price of current order
     const total_price = order.length !== 0 && order !== null ? order.map((item) => item.unit_price).reduce((acc, curr) => acc! + curr!)! : 0.00;
 
     return (
@@ -91,8 +108,8 @@ const OrderBar: React.FC<OrderBarProps> = ({order, clearOrder, finishOrder, back
                 <Grid item xs={4} sm={4} md={4} sx={{display:"flex", justifyContent:"center", alignItems:"center"}}>
                     <PriceDisplay total_price={total_price}/>
                 </Grid>
-                <Grid item xs={4} sm={4} md={4} container justifyItems="right">
-                    <Cart order={order} clearOrder={clearOrder} removeItem={removeItem}/>
+                <Grid item xs={4} sm={4} md={4} sx={{display:"flex", justifyItems:'flex-end'}}>
+                    <Cart finishOrder={finishOrder} order={order} clearOrder={clearOrder} removeItem={removeItem}/>
                 </Grid>
             </Grid>
         </Paper>

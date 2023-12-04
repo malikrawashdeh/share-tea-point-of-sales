@@ -14,6 +14,13 @@ interface FormDialogProps {
     handleModalClose(): void,
 };
 
+/**
+ * Pop-up for modifying/creating a new drink
+ * 
+ * @param drink The user selected drink
+ * @param handleModalClose Callback to clean up the modal sence upon user close 
+ * @returns Modal Element
+ */
 const FormDialog: React.FC<FormDialogProps> = ({drink, handleModalClose}) => {
   const [newDrink, setNewDrink] = useState<drinks>();
 
