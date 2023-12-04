@@ -38,11 +38,11 @@ const HomePage = () => {
         </div>
 
         {/* Larger Order Now Button */}
-        <Link href="/order">
           <button style={{ textDecoration: 'none', color: 'white', backgroundColor: '#ce0e2d', padding: '15px 30px', borderRadius: '8px', border: 'none', cursor: 'pointer', fontSize: '20px', marginBottom: '40px' , marginLeft: '160px'}}>
+            <Link href="/order">
             Order Now
+            </Link>
           </button>
-        </Link>
       </div>
 
       {/* Footer */}
