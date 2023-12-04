@@ -29,7 +29,9 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "swaggerOptions.js",
-    "components/GoogleTranslate.jsx"
+    "components/GoogleTranslate.jsx",
+    "app/api-doc/react-swagger.jsx",
+    "app/api-doc/page.jsx"
   ],
   "exclude": ["node_modules"]
 }
