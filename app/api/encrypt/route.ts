@@ -11,6 +11,28 @@ type User = {
   password: string;
 };
 
+/**
+ * @swagger
+ * /api/encrypt:
+ *   post:
+ *     description: Encrypt user passwords
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               userIds:
+ *                 type: number
+ *             required:
+ *               - userIds
+ *     responses:
+ *      200:
+ *       description: Success
+ *     500:
+ *      description: Internal server error
+ *
+ */
 export async function POST(req: Request) {
   try {
     // Assuming your request body contains the necessary data for password updates

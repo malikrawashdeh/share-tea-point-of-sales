@@ -2,6 +2,43 @@ import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { hash } from "bcrypt";
 
+/*
+ * @swagger
+ * /api/user:
+ *   post:
+ *     description: Create a new user
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               username:
+ *                 type: string
+ *               role:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *             required:
+ *               - name
+ *               - email
+ *               - username
+ *               - role
+ *               - password
+ *     responses:
+ *       201:
+ *         description: Success user creation
+ *       400:
+ *         description: Bad request
+ *       409:
+ *         description: User already exists
+ *       500:
+ *         description: Internal server error
+ */
 export async function POST(req: Request) {
   try {
     const body = await req.json();
