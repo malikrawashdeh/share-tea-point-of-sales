@@ -7,7 +7,6 @@ export default async function IndexPage() {
   return (
     <section className="container">
       <Card>
-        <h1>API Documentation</h1>
         <ReactSwagger spec={spec} />
       </Card>
     </section>
