@@ -18,8 +18,8 @@ const HomePage: React.FC = () => {
       {/* Content */}
       <div style={{ flex: 1, padding: '20px' }}>
         {/* Fading Slide Show */}
-        <div className="slideshow-container">
-          <div className="slideshow">
+        <div className="slideshow-container" style={{}}>
+          <div className="slideshow" style={{justifyContent: 'center'}}>
             {slideImages.map((slideSrc, index) => (
               <img
                 key={index}
@@ -43,7 +43,7 @@ const HomePage: React.FC = () => {
             <p style={{ marginBottom: '20px', fontSize: '18px', textAlign: 'center', alignItems: 'center', marginRight: '200px', marginLeft: '200px'}}>
               ShareTea has been your go-to destination for the best boba tea experience.
               Our cozy, vibrant spot offers a diverse menu of freshly brewed teas and creative flavors, paired with perfectly chewy tapioca pearls.
-              Whether you're a boba enthusiast or a newcomer, indulge in our delightful concoctions and sip your way to bliss!
+              Whether you&aposre a boba enthusiast or a newcomer, indulge in our delightful concoctions and sip your way to bliss!
             </p>
           
         </div>
@@ -77,7 +77,6 @@ const HomePage: React.FC = () => {
 
       {/* Add the CSS for the animation and footer */}
       <style jsx>{`
-
         .slideshow-container {
           overflow: hidden;
           position: relative;
@@ -88,7 +87,7 @@ const HomePage: React.FC = () => {
         .slideshow {
           display: flex;
           animation: fade 8s linear infinite;
-          width: 200%; // Make the slideshow container twice as wide to accommodate two images side by side
+          width: auto; // Make the slideshow container twice as wide to accommodate two images side by side
         }
 
         .slide {

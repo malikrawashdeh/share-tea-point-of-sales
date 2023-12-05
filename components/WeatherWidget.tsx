@@ -18,20 +18,10 @@ const WeatherWidget: React.FC = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!cur_temp && navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const { latitude, longitude } = position.coords;
-          // use redux to fetch weather data
-          // only fetch if weather data is not already in redux store
-          if (cur_temp === undefined) {
-            dispatch(getWeatherAsync({ lat: latitude, long: longitude }));
-          }
-        },
-        (error) => {
-          console.error("Error getting geolocation:", error);
-        }
-      );
+    if (!cur_temp) {
+      if (cur_temp === undefined) {
+        dispatch(getWeatherAsync({ lat: 30.62410297405949, long: -96.33967039810574 }));
+      }
     } else {
       console.error("Geolocation is not supported by your browser");
     }
@@ -57,7 +47,7 @@ const WeatherWidget: React.FC = () => {
           <Typography variant="body1">{cur_temp}°F</Typography>
         </span>
       ) : (
-        <CircularProgress />
+        <></>
       )}
     </div>
   );

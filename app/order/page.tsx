@@ -11,6 +11,8 @@ import DrinksDisplay from "./DrinksDisplay";
 import { useSelector, useDispatch, selectCart, cartSlice } from "@/lib/redux";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
+import RetrospectModel from "./RetrospectModal";
+import { redirect } from "next/navigation";
 
 /**
  * Page level component for the Customer Order View
@@ -33,6 +35,7 @@ export default function Page() {
   // Grab user session info
   const { data: session, status } = useSession();
 
+  const [modalOpen, setModalOpen] = useState(false);
   /**
    * Retierves the store's drink menu using the proper server action
    */
@@ -73,12 +76,10 @@ export default function Page() {
 
   const finishOrder = () => {
     if (order.length > 0) {
-      console.log("submitting order");
-      console.log(session);
+      setModalOpen(true);
       submitOrderCustomer(Number(session?.user.id), session?.user.name!, order);
-      clearOrder();
     }
-  };
+  }
 
   const back = () => {
     const tmp = table;
@@ -91,6 +92,10 @@ export default function Page() {
       getMenu();
     }
   }, []);
+
+  if (session === null) {
+    redirect('/signin');
+  }
 
   if (loading) {
     return (
@@ -109,6 +114,7 @@ export default function Page() {
   } else if (table === "categories") {
     return (
       <main>
+        <RetrospectModel modalOpen={modalOpen} setModalOpen={setModalOpen} order={order} clearOrder={clearOrder}/>
         <Container style={{ alignItems: "center", justifyContent: "center" }}>
           <OrderBar
             order={order}
@@ -127,7 +133,9 @@ export default function Page() {
             style={{ padding: "1rem" }}
           >
             <Categories
-              categories={Array.from(menu.keys())}
+              categories={
+                Array.from(menu.keys()).map((value) => ({cat_name: value, image: menu.get(value)?.at(0)?.image_link || "https://static.vecteezy.com/system/resources/thumbnails/024/933/352/small/refreshing-milkshake-with-chocolate-and-fruit-on-wooden-table-background-generated-by-ai-free-photo.jpg"}))              
+              }
               setTableState={changeTableState}
             ></Categories>
           </Grid>
@@ -139,6 +147,7 @@ export default function Page() {
   } else {
     return (
       <main>
+        <RetrospectModel modalOpen={modalOpen} setModalOpen={setModalOpen} order={order} clearOrder={clearOrder}/>
         <Container style={{ alignItems: "center", justifyContent: "center" }}>
           <OrderBar
             order={order}

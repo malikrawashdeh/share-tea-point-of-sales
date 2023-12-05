@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect, useState } from 'react';
 import { Card, CardActionArea, CardContent, CardMedia, Container, Grid, Typography } from '@mui/material';
-import { getDrinks } from '@/lib/orderQueries';
+import { getDrinks, getDrinksWithinCategories } from '@/lib/orderQueries';
 import { drinks } from '@prisma/client';
 
 import Modal from '@mui/material/Modal';
@@ -16,6 +16,8 @@ const Menu = () => {
   const [drinks, setDrinks] = useState(new Array<drinks>());
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [selectedDrink, setSelectedDrink] = useState<drinks | null>(null);
+  const [menu, setMenu] = useState(new Map<string, drinks[]>());
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,7 +25,15 @@ const Menu = () => {
       setDrinks(drinksData);
     };
     fetchData();
+    getMenu();
   }, []); 
+
+  const getMenu = React.useCallback(async () => {
+    setLoading(true);
+    const menu = await getDrinksWithinCategories();
+    setMenu(menu);
+    setLoading(false);
+  }, []);
 
   const handleCategoryClick = (category: string) => {
     setSelectedCategory(category);
@@ -54,7 +64,7 @@ const Menu = () => {
       {/* Display all drink categories as cards */}
       {!selectedCategory &&
         <Grid container spacing={2}>
-          {Array.from(new Set(drinks.map((drink) => drink.category_name))).map((category, index) => (
+          {Array.from(menu.keys()).map((category, index) => (
             <Grid item xs={12} sm={6} md={4} key={index}>
               <Card onClick={() => handleCategoryClick(category!)}>
                 <CardActionArea>
@@ -62,7 +72,8 @@ const Menu = () => {
                     component="img"
                     alt={category!}
                     height="200"
-                    image= "https://static.vecteezy.com/system/resources/thumbnails/024/933/352/small/refreshing-milkshake-with-chocolate-and-fruit-on-wooden-table-background-generated-by-ai-free-photo.jpg"
+                    image={menu.get(category)?.at(0)?.image_link!}
+                    aria-label={"Go to" + category + " category"}
                   />
                   <CardContent>
                     <Typography variant="h6" component="div" color="black">
@@ -90,6 +101,7 @@ const Menu = () => {
                       alt={drink.drink_name!}
                       height="15"
                       image= {drink.image_link!}
+                      aria-label={"Select " + drink.drink_name}
                     />
                     <CardContent>
                       <Typography variant="h6" component="div" color="black">
@@ -109,8 +121,10 @@ const Menu = () => {
         onClose={handleCloseModal}
         aria-labelledby="drink-description-modal"
         aria-describedby="drink-description"
+        aria-label={selectedDrink + " description"}
       >
         <Box
+          aria-label={selectedDrink?.drink_name + " description"}
           sx={{
             position: 'absolute',
             top: '50%',
@@ -123,7 +137,6 @@ const Menu = () => {
             borderRadius: 8,
             p: 2,
             overflow: 'hidden',
-            
           }}
         >
           {/* Display the image of the drink */}

@@ -10,6 +10,7 @@ import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
+import dayjs from "dayjs";
 
 // create array of month name
 const monthMap = [
@@ -29,9 +30,10 @@ const monthMap = [
 function AccordianOrder({ order }: AccordianProps) {
   // 2023-10-03
   // split date using substring
-  const year = String(order.created_at).substring(0, 4);
-  const month = String(order.created_at).substring(5, 7);
-  const day = String(order.created_at).substring(8, 10);
+  const orderDate = dayjs(order.created_at);
+  const year = orderDate.year();
+  const month = orderDate.month();
+  const day = orderDate.date();
   return (
     // make accordian take up full width
     <Accordion
@@ -56,7 +58,7 @@ function AccordianOrder({ order }: AccordianProps) {
           <Grid item xs={4}>
             <Typography>{`${
               monthMap[Number(month) - 1]
-            } ${day}, ${year}`}</Typography>
+            } ${day + 1}, ${year}`}</Typography>
           </Grid>
           <Grid item xs={3}>
             <Typography>{`Total: $${order.total_price}`}</Typography>
