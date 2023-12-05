@@ -1,6 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    reactStrictMode: false
-}
+  webpack: (config) => {
+    config.ignoreWarnings = [
+      { module: /node_modules\/swagger-jsdoc\/src\/utils\.js/ },
+      { file: /node_modules\/swagger-jsdoc\/src\/index\.js/ },
+    ];
 
-module.exports = nextConfig
+    return config;
+  },
+};
+
+module.exports = nextConfig;

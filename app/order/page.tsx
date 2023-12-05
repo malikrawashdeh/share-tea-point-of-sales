@@ -14,7 +14,6 @@ import { useSession } from "next-auth/react";
 import RetrospectModel from "./RetrospectModal";
 import { redirect } from "next/navigation";
 
-
 /**
  * Page level component for the Customer Order View
  * @returns Main Order Page
@@ -42,15 +41,18 @@ export default function Page() {
    * Retierves the store's drink menu using the proper server action
    */
   const getMenu = React.useCallback(async () => {
-      setLoading(true);
-      const menu = await getDrinksWithinCategories();
-      setMenu(menu);
-      setLoading(false);
+    setLoading(true);
+    const menu = await getDrinksWithinCategories();
+    setMenu(menu);
+    setLoading(false);
   }, []);
-  
-  const submitOrderCustomer = React.useCallback(async (id: number, name: string, orderItems: drinks[]) => {
+
+  const submitOrderCustomer = React.useCallback(
+    async (id: number, name: string, orderItems: drinks[]) => {
       await submitOrder(id, name, orderItems);
-  }, []);
+    },
+    []
+  );
 
   const changeDrinkState = (drink: drinks) => {
     setDrink(drink);
@@ -79,6 +81,7 @@ export default function Page() {
         submitOrderCustomer(Number(session?.user.id), session?.user.name!, order);
       }
     }
+  };
 
   const back = () => {
     const tmp = table;

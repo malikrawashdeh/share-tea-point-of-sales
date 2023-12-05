@@ -1,0 +1,130 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Next Swagger API ShareTea",
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/drinks": {
+      "get": {
+        "description": "Get all drinks",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/encrypt": {
+      "post": {
+        "500": {
+          "description": "Internal server error"
+        },
+        "description": "Encrypt user passwords",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "userIds": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "userIds"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/excessReport": {
+      "get": {
+        "description": "Get all ingredients that are in excess",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/order_list": {
+      "get": {
+        "description": "Get all orders of a user",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "query",
+            "description": "User id",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "No orders found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/restockReport": {
+      "get": {
+        "description": "Get all ingredients that need to be restocked",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/salesDataRange": {
+      "get": {
+        "description": "Get all drinks sold between a date range",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/setDrink": {
+      "post": {
+        "description": "set new drink or update existing drink",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    }
+  },
+  "components": {},
+  "tags": []
+}
