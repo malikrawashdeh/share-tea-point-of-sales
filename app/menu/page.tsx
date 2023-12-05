@@ -63,6 +63,7 @@ const Menu = () => {
                     alt={category!}
                     height="200"
                     image= "https://static.vecteezy.com/system/resources/thumbnails/024/933/352/small/refreshing-milkshake-with-chocolate-and-fruit-on-wooden-table-background-generated-by-ai-free-photo.jpg"
+                    aria-label={"Go to" + category + " category"}
                   />
                   <CardContent>
                     <Typography variant="h6" component="div" color="black">
@@ -90,6 +91,7 @@ const Menu = () => {
                       alt={drink.drink_name!}
                       height="15"
                       image= {drink.image_link!}
+                      aria-label={"Select " + drink.drink_name}
                     />
                     <CardContent>
                       <Typography variant="h6" component="div" color="black">
@@ -109,8 +111,10 @@ const Menu = () => {
         onClose={handleCloseModal}
         aria-labelledby="drink-description-modal"
         aria-describedby="drink-description"
+        aria-label={selectedDrink + " description"}
       >
         <Box
+          aria-label={selectedDrink?.drink_name + " description"}
           sx={{
             position: 'absolute',
             top: '50%',
@@ -123,7 +127,6 @@ const Menu = () => {
             borderRadius: 8,
             p: 2,
             overflow: 'hidden',
-            
           }}
         >
           {/* Display the image of the drink */}

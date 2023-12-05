@@ -20,18 +20,17 @@ const CartDisplay: React.FC<CartDisplayProps> = ({ isOpen, toggleCart, cartItems
             </Avatar>
         </IconButton>
 
-        <Drawer anchor="right" open={isOpen} onClose={toggleCart}>
+        <Drawer anchor="right" open={isOpen} onClose={toggleCart} aria-label="Cart-Item">
             <div style={{ width: '250px' }}>
                 <List>
-                    <Button onClick={finishOrder} variant="contained" style={{backgroundColor: '#ce0e2d', marginRight: '1rem', marginLeft: '1rem'}}>Finish Order</Button>
                     {cartItems.map((item, index) => (
                         <ListItemButton key={index} onClick={() => (removeItem(index))}>
                             <ListItem key={index}>
-                                <Typography style={{opacity: '0%'}}>Removed to Order</Typography>
-                                <ListItemText primary={item.drink_name + "  ❌"} secondary={`Price: ${"$" + item.unit_price}`} />
+                                <ListItemText aria-label={"Remove" + item.drink_name + "from order"} primary={item.drink_name + "  ❌"} secondary={`Price: ${"$" + item.unit_price}`} />
                             </ListItem>
                         </ListItemButton>
                     ))}
+                    <Button onClick={finishOrder} variant="contained" style={{backgroundColor: '#ce0e2d', marginRight: '1rem', marginLeft: '1rem'}}>Back to Order</Button>
                 </List>
             </div>
         </Drawer>

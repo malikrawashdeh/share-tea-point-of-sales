@@ -23,35 +23,40 @@ const RetrospectModel: React.FC<props> = ({modalOpen, setModalOpen, clearOrder, 
   }, [order]);
 
   return (
-      <Modal
-      open={!!modalOpen}
-      onClose={() => {setModalOpen(false); clearOrder();}}
-      aria-labelledby="drink-description-modal"
-      aria-describedby="drink-description"
-    >
-      <Box
-        sx={{
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          width: 400, // Set the width to your desired size
-          height: 400, // Set the height to your desired size
-          bgcolor: 'background.paper',
-          border: '2px solid red', // Set border color to red
-          borderRadius: 8, // Optional: Add border radius for a rounded appearance
-          p: 2,
-        }}
+<Modal
+        open={!!modalOpen}
+        onClose={() => {setModalOpen(false); clearOrder();}}
+        aria-labelledby="drink-description-modal"
+        aria-describedby="drink-description"
+        aria-label={"Order comfirmation with childern text"}
       >
-      <Subheader text={"Thank you!"}/>
-      <Subheader text={"Your order for " + orderState.length + " drinks at a total of $" + total.toFixed(2) + " is confirmed"}/>
-          <Link href="/pastorders">
-          <button onClick={() => {clearOrder();}} style={{ textDecoration: 'none', color: 'white', backgroundColor: '#ce0e2d', padding: '15px 30px', borderRadius: '8px', border: 'none', cursor: 'pointer', fontSize: '20px'}}>
-            View Orders
-          </button>
-          </Link>
-      </Box>
-    </Modal>
+        <Box
+          aria-label={"Order comfirmation with childern text"}
+          sx={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: '25%',
+            height: '50%',
+            bgcolor: 'background.paper',
+            border: '2px solid red',
+            borderRadius: 8,
+            p: 2,
+            overflow: 'hidden',
+          }}
+        >
+          <Typography variant="h5" color="black">
+           Thank You for your order!
+          </Typography>
+          <Typography variant="h4" color="black" sx={{mt: '30px'}}>
+            {order.length + " drinks ordered"}
+          </Typography>
+          <Typography variant="h4" color="black" sx={{mt: '30px'}}>
+            {"$ " + total}
+          </Typography>
+        </Box>
+      </Modal>
   );
 }
 

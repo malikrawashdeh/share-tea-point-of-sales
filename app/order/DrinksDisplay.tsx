@@ -36,9 +36,9 @@ const DrinksDisplay: React.FC<DrinkCardGridProps> = ({drinkCategoryMap, category
                             image="https://static.vecteezy.com/system/resources/thumbnails/024/933/352/small/refreshing-milkshake-with-chocolate-and-fruit-on-wooden-table-background-generated-by-ai-free-photo.jpg"
                             height="10"
                             alt=""
+                            aria-label={"Add" + value.drink_name + "from order"}
                             />
                             <CardContent>
-                                <Typography style={{opacity: '0%'}}>Add to Order</Typography>
                                 <Typography gutterBottom variant="h5" component="div">
                                     {value.drink_name}
                                 </Typography>
