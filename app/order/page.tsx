@@ -132,7 +132,9 @@ export default function Page() {
             style={{ padding: "1rem" }}
           >
             <Categories
-              categories={Array.from(menu.keys())}
+              categories={
+                Array.from(menu.keys()).map((value) => ({cat_name: value, image: menu.get(value)?.at(0)?.image_link || "https://static.vecteezy.com/system/resources/thumbnails/024/933/352/small/refreshing-milkshake-with-chocolate-and-fruit-on-wooden-table-background-generated-by-ai-free-photo.jpg"}))              
+              }
               setTableState={changeTableState}
             ></Categories>
           </Grid>

@@ -1,10 +1,10 @@
 'use client'
 
 import { Card, CardActionArea, CardContent, CardMedia, Container, Grid, Typography } from "@mui/material";
-import React from "react";
+import React from "react"; 
 
 interface CategoriesProps { 
-    categories: Array<string>,
+    categories: Array<{cat_name: string, image: string}>,
     setTableState(table: string): void, 
 }
 
@@ -21,16 +21,16 @@ const Categories: React.FC<CategoriesProps> = ({categories, setTableState}) => {
         {Array.from(categories).map((value, index) => (
             <Grid item xs={2} sm={4} md={4} key={index} style={{}}>
             <Card sx={{ maxWidth: 345 }}>
-                <CardActionArea onClick={() => {setTableState(value)}}>
+                <CardActionArea onClick={() => {setTableState(value.cat_name)}}>
                         <CardMedia
                         component="img"
-                        image="https://static.vecteezy.com/system/resources/thumbnails/024/933/352/small/refreshing-milkshake-with-chocolate-and-fruit-on-wooden-table-background-generated-by-ai-free-photo.jpg"
+                        image={value.image}
                         height="10"
                         alt=""
                         />
                         <CardContent>
                             <Typography gutterBottom variant="h5" component="div">
-                                {value}
+                                {value.cat_name}
                             </Typography>
                         </CardContent>
                 </CardActionArea>

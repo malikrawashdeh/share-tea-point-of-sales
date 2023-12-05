@@ -33,7 +33,7 @@ const DrinksDisplay: React.FC<DrinkCardGridProps> = ({drinkCategoryMap, category
                     <CardActionArea onClick={() => {setDrink(value); addDrinkToOrder(value)}}>
                             <CardMedia
                             component="img"
-                            image="https://static.vecteezy.com/system/resources/thumbnails/024/933/352/small/refreshing-milkshake-with-chocolate-and-fruit-on-wooden-table-background-generated-by-ai-free-photo.jpg"
+                            image={value.image_link!}
                             height="10"
                             alt=""
                             aria-label={"Add" + value.drink_name + "from order"}
