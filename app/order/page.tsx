@@ -36,7 +36,6 @@ export default function Page() {
   const { data: session, status } = useSession();
 
   const [modalOpen, setModalOpen] = useState(false);
-
   /**
    * Retierves the store's drink menu using the proper server action
    */
@@ -75,13 +74,12 @@ export default function Page() {
     dispatch(cartSlice.actions.clearCart());
   };
 
-    const finishOrder = () => {
-      if (order.length > 0) {
-        setModalOpen(true);
-        submitOrderCustomer(Number(session?.user.id), session?.user.name!, order);
-      }
+  const finishOrder = () => {
+    if (order.length > 0) {
+      setModalOpen(true);
+      submitOrderCustomer(Number(session?.user.id), session?.user.name!, order);
     }
-  };
+  }
 
   const back = () => {
     const tmp = table;

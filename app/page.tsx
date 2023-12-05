@@ -43,7 +43,7 @@ const HomePage: React.FC = () => {
             <p style={{ marginBottom: '20px', fontSize: '18px', textAlign: 'center', alignItems: 'center', marginRight: '200px', marginLeft: '200px'}}>
               ShareTea has been your go-to destination for the best boba tea experience.
               Our cozy, vibrant spot offers a diverse menu of freshly brewed teas and creative flavors, paired with perfectly chewy tapioca pearls.
-              Whether you're a boba enthusiast or a newcomer, indulge in our delightful concoctions and sip your way to bliss!
+              Whether you&aposre a boba enthusiast or a newcomer, indulge in our delightful concoctions and sip your way to bliss!
             </p>
           
         </div>
@@ -52,8 +52,8 @@ const HomePage: React.FC = () => {
         <Link href="/order">
           <button style={{ textDecoration: 'none', color: 'white', backgroundColor: '#ce0e2d', padding: '15px 30px', borderRadius: '8px', border: 'none', cursor: 'pointer', fontSize: '20px', marginBottom: '40px' }}>
             Order Now
-            </Link>
           </button>
+        </Link>
       </div>
 
       {/* Footer */}
