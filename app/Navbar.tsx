@@ -10,7 +10,7 @@ import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import MenuItem from "@mui/material/MenuItem";
-import { LocalDrink } from '@mui/icons-material';
+import { LocalDrink } from "@mui/icons-material";
 import AdbIcon from "@mui/icons-material/Adb";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
@@ -27,7 +27,6 @@ function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
-
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -45,7 +44,7 @@ function ResponsiveAppBar() {
     >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <LocalDrink sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}/>
+          <LocalDrink sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
@@ -103,8 +102,10 @@ function ResponsiveAppBar() {
                 </MenuItem>
               ))}
               <MenuItem>
-                <Box sx={{ my: 'auto', mx: 2, color: "white", display: "block" }}>
-                  <WeatherWidget/>
+                <Box
+                  sx={{ my: "auto", mx: 2, color: "white", display: "block" }}
+                >
+                  <WeatherWidget />
                 </Box>
               </MenuItem>
               {session?.user.role == "admin" ||
@@ -141,7 +142,7 @@ function ResponsiveAppBar() {
             {pages.map((page) => (
               <Box
                 key={page}
-                sx={{ my: 'auto', mx: 2, color: "white", display: "block" }}
+                sx={{ my: "auto", mx: 2, color: "white", display: "block" }}
               >
                 <Link
                   href={page === "Home" ? "/" : "/" + page.toLocaleLowerCase()}
@@ -153,18 +154,18 @@ function ResponsiveAppBar() {
             {session?.user.role == "admin" ||
             session?.user.role === "manager" ||
             session?.user.role == "employee" ? (
-              <Box sx={{ my: 'auto', mx: 2, color: "white", display: "block" }}>
+              <Box sx={{ my: "auto", mx: 2, color: "white", display: "block" }}>
                 <Link href={"/" + "Employees".toLocaleLowerCase()}>
                   Employees
                 </Link>
               </Box>
             ) : null}
-              <Box sx={{ my: 'auto', mx: 2, color: "white", display: "block" }}>
-                <WeatherWidget/>
-              </Box>
-              <Box sx={{display: "flex", mx: '5px' }}>
-                <GoogleTranslate/>
-              </Box>
+            <Box sx={{ my: "auto", mx: 2, color: "white", display: "block" }}>
+              <WeatherWidget />
+            </Box>
+            <Box sx={{ display: "flex", mx: "5px" }}>
+              <GoogleTranslate />
+            </Box>
           </Box>
           {session != null ? (
             <UserNavHeader />

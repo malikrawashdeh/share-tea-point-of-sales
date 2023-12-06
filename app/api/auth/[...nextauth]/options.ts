@@ -81,19 +81,19 @@ const options: NextAuthOptions = {
           session_user = await prisma.users.findFirst({
             where: { email: session.user.email },
           });
-        }
-        if (session.user.name) {
+        } else if (session.user.name) {
           session_user = await prisma.users.findFirst({
             where: { username: session.user.name },
           });
         }
-
         if (session_user) {
           // update fields
           session.user.role = session_user.role;
           session.user.id = session_user.id.toString();
           session.user.name = session_user.name;
           session.user.email = session_user.email;
+        } else {
+          session.user.role = token.role;
         }
       }
       return session;
