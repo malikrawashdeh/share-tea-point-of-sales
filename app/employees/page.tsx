@@ -12,7 +12,7 @@ export default function Employees() {
       <Subheader text="Employees"/>
       <Container sx={{my:'auto'}}>
         <Card sx={{my:'1rem'}}>
-            <CardActionArea href="/employees/cashier">
+            <CardActionArea href="/order">
               <CardMedia
                 component="img"
                 height="200"
