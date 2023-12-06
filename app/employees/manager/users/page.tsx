@@ -38,7 +38,7 @@ const Page = () => {
 
     const grabUsers = React.useCallback(async () => {
         setLoading(true);
-        const result = await fetch('/api/getUsers/', {});
+        const result = await fetch('/api/getUsers/', { cache: 'no-store' });
         const data = await result.json();
         console.log(data);
         setUsers(data.users);

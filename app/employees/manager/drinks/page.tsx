@@ -38,7 +38,7 @@ const DrinksPage = () => {
 
     const grabDrinks = React.useCallback(async () => {
         setLoading(true);
-        const result = await fetch('/api/drinks/', {});
+        const result = await fetch('/api/drinks/', { cache: 'no-store' });
         const data = await result.json();
         console.log(data);
         setDrinks(data.result);
