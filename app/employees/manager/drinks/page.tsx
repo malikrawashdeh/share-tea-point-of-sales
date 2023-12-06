@@ -8,6 +8,7 @@ import { Box, Button, CircularProgress, Container } from "@mui/material";
 import FormDialog from "./FormDialog";
 import Link from "next/link";
 
+export const fetchCache = 'force-no-store'
 /**
  * Main Component Page for drinks table
  * 
