@@ -58,8 +58,8 @@ const HomePage: React.FC = () => {
 
       {/* Footer */}
       <footer style={{ backgroundColor: '#ce0e2d', padding: '50px',width: '100vw', textAlign: 'center' }}>
-        <h2>Contact Us</h2>
-        <p>Phone: (979) 330-4078</p>
+        <h2 style={{ textDecoration: 'none', color: 'white', fontWeight: 'bold' }}>Contact Us</h2>
+        <p style={{ textDecoration: 'none', color: 'white', fontWeight: 'bold' }}>Phone: (979) 330-4078</p>
 
         {/* Social Media Icons */}
         <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'center' }}>
