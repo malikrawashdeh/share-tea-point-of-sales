@@ -8,6 +8,7 @@ import { Box, Button, CircularProgress, Container } from "@mui/material";
 import FormDialog from "./FormDialog";
 import Link from "next/link";
 
+export const fetchCache = 'force-no-store'
 /**
  * Main Component Page for drinks table
  * 
@@ -38,7 +39,7 @@ const DrinksPage = () => {
 
     const grabDrinks = React.useCallback(async () => {
         setLoading(true);
-        const result = await fetch('/api/drinks/', {});
+        const result = await fetch('/api/drinks/', { cache: 'no-store' });
         const data = await result.json();
         console.log(data);
         setDrinks(data.result);

@@ -37,7 +37,7 @@ const IngredientsPage = () => {
 
     const grabIngredients = React.useCallback(async () => {
         setLoading(true);
-        const result = await fetch('/api/ingredients/', {});
+        const result = await fetch('/api/ingredients/', { cache: 'no-store' });
         const data = await result.json();
         console.log(data);
         setIngredients(data.result);

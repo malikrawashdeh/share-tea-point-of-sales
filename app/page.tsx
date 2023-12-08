@@ -2,6 +2,7 @@
 // Import required modules
 import React from 'react';
 import Link from 'next/link';
+import Footer from '@/components/Footer';
 
 // Define component
 const HomePage: React.FC = () => {
@@ -43,7 +44,7 @@ const HomePage: React.FC = () => {
             <p style={{ marginBottom: '20px', fontSize: '18px', textAlign: 'center', alignItems: 'center', marginRight: '200px', marginLeft: '200px'}}>
               ShareTea has been your go-to destination for the best boba tea experience.
               Our cozy, vibrant spot offers a diverse menu of freshly brewed teas and creative flavors, paired with perfectly chewy tapioca pearls.
-              Whether you&aposre a boba enthusiast or a newcomer, indulge in our delightful concoctions and sip your way to bliss!
+              Whether you are a boba enthusiast or a newcomer, indulge in our delightful concoctions and sip your way to bliss!
             </p>
           
         </div>
@@ -58,8 +59,8 @@ const HomePage: React.FC = () => {
 
       {/* Footer */}
       <footer style={{ backgroundColor: '#ce0e2d', padding: '50px',width: '100vw', textAlign: 'center' }}>
-        <h2>Contact Us</h2>
-        <p>Phone: (979) 330-4078</p>
+        <h2 style={{ textDecoration: 'none', color: 'white', fontWeight: 'bold' }}>Contact Us</h2>
+        <p style={{ textDecoration: 'none', color: 'white', fontWeight: 'bold' }}>Phone: (979) 330-4078</p>
 
         {/* Social Media Icons */}
         <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'center' }}>

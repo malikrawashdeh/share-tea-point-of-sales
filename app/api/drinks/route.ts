@@ -1,7 +1,8 @@
 import { getDrinks } from "@/lib/orderQueries";
 import prisma from "@/lib/prisma";
 import { NextResponse } from "@/node_modules/next/server";
-
+export const fetchCache = 'force-no-store'
+export const dynamic = 'force-dynamic'
 /**
  * @swagger
  * /api/drinks:

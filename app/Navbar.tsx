@@ -160,12 +160,12 @@ function ResponsiveAppBar() {
                 </Link>
               </Box>
             ) : null}
-            <Box sx={{ my: "auto", mx: 2, color: "white", display: "block" }}>
-              <WeatherWidget />
-            </Box>
-            <Box sx={{ display: "flex", mx: "5px" }}>
-              <GoogleTranslate />
-            </Box>
+              <Box sx={{ my: 'auto', mx: 2, color: "white", display: "block" }}>
+                <WeatherWidget/>
+              </Box>
+              <Box sx={{display: "flex", mx: '5px', backgroundColor:'white' }}>
+                <GoogleTranslate/>
+              </Box>
           </Box>
           {session != null ? (
             <UserNavHeader />
