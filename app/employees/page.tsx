@@ -5,7 +5,7 @@ import { Card, CardActionArea, CardContent, CardMedia, Container, Paper, Typogra
  * Component for the employees dashboard
  * @returns Employees dashboard component
  */
-export default function Employees() {
+export default function Page() {
   return (
     // create me centered container with h1 and p
     <Container maxWidth="sm">

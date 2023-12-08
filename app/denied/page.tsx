@@ -5,7 +5,7 @@ import NextLink from "next/link";
 /*
  * @returns {JSX.Element}
  */
-export default function Denied() {
+export default function Page() {
   return (
     <section
       style={{
