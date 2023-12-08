@@ -29,7 +29,19 @@ const options: NextAuthOptions = {
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+      profile(profile: GoogleProfile) {
+        console.log(profile);
+        return {
+          ...profile,
+          role: profile.role ?? "user",
+          name: profile.given_name + " " + profile.family_name,
+          email: profile.email,
+          image: profile.picture,
+          id: profile.sub,
+        };
+      },
     }),
+
     CredentialsProvider({
       name: "Credentials",
       credentials: {
@@ -111,6 +123,7 @@ const options: NextAuthOptions = {
             where: { email: email as string },
           });
           console.log(user);
+
           // if user does not exist then create user
           if (!user) {
             await prisma.users.create({
