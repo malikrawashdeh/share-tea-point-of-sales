@@ -19,6 +19,8 @@ const Page: React.FC = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      console.log("working");
+      console.log(session);
       if (status === "loading") return; // Do nothing while loading
       try {
         setLoading(true);

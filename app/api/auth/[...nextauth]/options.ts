@@ -71,6 +71,7 @@ const options: NextAuthOptions = {
     // Ref: https://authjs.dev/guides/basics/role-based-access-control#persisting-the-role
     async jwt({ token, user }) {
       if (user) token.role = user.role;
+      if (user) token.id = user.id;
       return token;
     },
     // If you want to use the role in client components
@@ -94,8 +95,10 @@ const options: NextAuthOptions = {
           session.user.email = session_user.email;
         } else {
           session.user.role = token.role;
+          session.user.id = token.id as string;
         }
       }
+      console.log(session);
       return session;
     },
 
