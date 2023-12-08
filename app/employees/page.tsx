@@ -1,3 +1,5 @@
+'use client'
+
 import Subheader from "@/components/Subheader";
 import { Card, CardActionArea, CardContent, CardMedia, Container, Paper, Typography } from "@mui/material";
 

@@ -1,3 +1,5 @@
+'use client'
+
 import { Typography, Link as MuiLink } from "@mui/material";
 import NextLink from "next/link";
 
